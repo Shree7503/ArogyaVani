@@ -4,8 +4,9 @@ from pathlib import Path
 
 app = FastAPI()
 
-# Set up Jinja2 template directory
-templates = Jinja2Templates(directory="/templates")
+# Ensure FastAPI correctly locates the templates folder
+BASE_DIR = Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 @app.get("/")
 async def index(request: Request):
