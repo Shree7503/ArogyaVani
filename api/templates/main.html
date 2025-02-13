@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background: transparent;
+            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+        }
+        .scrolled {
+            background: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .mega-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            z-index: 1000;
+            border-radius: 10px;
+        }
+        .mega-menu.active {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+/* Full-page swiper with proper alignment */
+.swiper {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+/* Slide background handling */
+.swiper-slide {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: brightness(85%);
+}
+
+/* Dark overlay for better text contrast */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Stronger contrast */
+}
+
+/* Hero text styling for a clean, modern look */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-size: 4rem; /* Larger for better readability */
+    font-weight: 700;
+    max-width: 80%;
+    line-height: 1.4;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* Soft shadow effect */
+    letter-spacing: 0.5px;
+}
+
+/* Smooth fade-in and slight lift effect for hero text */
+.swiper-slide-active .hero-text {
+    opacity: 1;
+    transform: translate(-50%, -45%);
+}
+
+/* Navigation buttons with minimalistic style */
+.swiper-button-next,
+.swiper-button-prev {
+    color: white;
+    transition: all 0.3s ease-in-out;
+    font-size: 2rem;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+/* Custom pagination styles for a clean, modern feel */
+.swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.5) !important;
+    width: 12px;
+    height: 12px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    background: white !important;
+    width: 14px;
+    height: 14px;
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.6);
+}
+
+/* CTA Buttons inside Swiper */
+.hero-text button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(5px);
+}
+
+.hero-text button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+
+
+    </style>
+</head>
+<body>
+<nav id="navbar" class="fixed top-0 left-0 w-full navbar p-5 flex items-center justify-between px-8 transition duration-300">
+    <a href="#" class="text-3xl font-extrabold text-white tracking-wide transition duration-300">ArogyaVani</a>
+    <button class="md:hidden text-white transition duration-300" id="menu-btn">
+        &#9776;
+    </button>
+    <ul class="hidden md:flex space-x-10 text-lg font-semibold transition duration-300" id="nav-links">
+        <li><a href="#" class="text-white hover:text-blue-600 transition duration-300">Services</a></li>
+        <li><a href="#" class="text-white hover:text-blue-600 transition duration-300">Doctors</a></li>
+        <li><a href="#" class="text-white hover:text-blue-600 transition duration-300">About Us</a></li>
+        <li><a href="#" class="text-white hover:text-blue-600 transition duration-300">Contact</a></li>
+    </ul>
+    <button class="hidden md:block bg-blue-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-blue-700 transition">
+        Sign In
+    </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu bg-white w-full p-6 hidden rounded-lg shadow-xl" id="mobile-menu">
+    <ul class="space-y-6 text-center">
+        <li>
+            <a href="#" class="block text-gray-800 hover:text-teal-600 font-semibold text-xl transition duration-300">
+                Services
+            </a>
+        </li>
+        <li>
+            <a href="#" class="block text-gray-800 hover:text-teal-600 font-semibold text-xl transition duration-300">
+                Doctors
+            </a>
+        </li>
+        <li>
+            <a href="#" class="block text-gray-800 hover:text-teal-600 font-semibold text-xl transition duration-300">
+                About Us
+            </a>
+        </li>
+        <li>
+            <a href="#" class="block text-gray-800 hover:text-teal-600 font-semibold text-xl transition duration-300">
+                Contact
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+        <!-- Slide 1 -->
+        <div class="swiper-slide" style="background-image: url('https://media.gettyimages.com/id/1130934349/photo/doctor-doing-social-service-in-village.jpg?s=612x612&w=0&k=20&c=rP9-cpT0u0N-MguSe6VMojakJ5-7r4IObQhMI1qNvGU=');">
+            <div class="overlay"></div>
+            <div class="hero-text">
+                आरोग्यं परमं धनम् <br> 
+                <span class="text-xl font-light">स्वस्थं जीवनस्य मूलम्</span> 
+                <br>
+                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                    हमारे साथ जुड़ें | Join Us
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide" style="background-image: url('https://media.istockphoto.com/id/1614148279/photo/indian-female-doctor-with-stethoscope-checking-little-child-patient-heart-beat-or-breath-at.jpg?s=2048x2048&w=is&k=20&c=WsIUhstzJNvpUNJEdVgirz0rYQXIawyhQzoRFlYPsLg=');">
+            <div class="overlay"></div>
+            <div class="hero-text">
+                चिकित्सा धर्मः <br>
+                <span class="text-xl font-light">सेवा परमो धर्मः</span>
+                <br>
+                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                    आरोग्य लाभः | Get Health Benefits
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide" style="background-image: url('https://media.istockphoto.com/id/861222018/photo/doctor-giving-injection-to-the-patient.jpg?s=2048x2048&w=is&k=20&c=yivVyO1BvBPNofvLavB6n5b54fOu4CVRbTiqV08Rf5o=');">
+            <div class="overlay"></div>
+            <div class="hero-text">
+                सर्वे सन्तु निरामयाः <br> 
+                <span class="text-xl font-light">सर्वे भवन्तु सुखिनः</span> 
+                <br>
+                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                    चिकित्सकं सम्पर्कः | Contact a Doctor
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide" style="background-image: url('https://c7.alamy.com/comp/2HBAKGN/young-indian-male-doctor-writing-prescription-on-paper-while-sitting-at-desk-outdoor-village-hospital-rural-healthcare-2HBAKGN.jpg');">
+            <div class="overlay"></div>
+            <div class="hero-text">
+                आयुर्वेदस्य महत्त्वं <br>
+                <span class="text-xl font-light">प्राकृतिक चिकित्सा श्रेष्ठा</span>
+                <br>
+                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                    औषधि एवं चिकित्सा | Explore Ayurveda
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 5: AI-Powered Diagnosis -->
+        <div class="swiper-slide" style="background-image: url('https://img.freepik.com/free-photo/man-working-as-paediatrician_23-2151696272.jpg?t=st=1739468318~exp=1739471918~hmac=01e255d3c3be6de3f64e8571c507606b724b8c4c892405f8186e852562a47297&w=1380');">
+            <div class="overlay"></div>
+            <div class="hero-text">
+                कृत्रिम बुद्धिमत्ता निदानम् <br>
+                <span class="text-xl font-light">"रोगचिह्नानाम् परीक्षणाय चित्रं अपलोड्यताम्।"</span>
+                <br>
+                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                    अधिक जाणून घ्या | Learn More
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 6: Voice-Enabled Assistance -->
+        <div class="swiper-slide" style="background-image: url('https://media.gettyimages.com/id/1064019662/photo/pediatrician-doctor-examining-ill-girl-at-village.jpg?s=612x612&w=0&k=20&c=SDj2bv9S4wBllpN3nG8j681tDJN27w1MQOx0nd-jC1U=');">
+            <div class="overlay"></div>
+            <div class="hero-text">
+                ध्वनि सहाय्येन आरोग्य सेवा <br>
+                <span class="text-xl font-light">भारते मराठी-हिन्दी-इंग्रजी भाषासु मार्गदर्शनम्।</span>
+                <br>
+                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                    अधिक जाणून घ्या | Learn More
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 7: Remote Doctor Consultations -->
+        <div class="swiper-slide" style="background-image: url('https://media.gettyimages.com/id/1680653991/photo/a-female-doctor-conducting-a-thorough-examination-of-a-child-during-a-rural-health-care-camp.jpg?s=612x612&w=0&k=20&c=L2Cuo2hiRzlDEuT-oAbMH36xzFmrP5k5Ivzsu2p5w24=');">
+            <div class="overlay"></div>
+            <div class="hero-text">
+                दूरस्थ चिकित्सा सेवा <br>
+                <span class="text-xl font-light">गृहे स्थित्वा चिकित्सकेन सम्पर्कः।</span>
+                <br>
+                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                    अधिक जाणून घ्या | Learn More
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Swiper Pagination & Navigation -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+
+
+
+<section class="bg-gradient-to-b from-[#0a2540] to-[#122b46] py-24 text-white text-center">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-6xl font-extrabold tracking-tight">Transforming Healthcare Access</h2>
+        <p class="text-xl mt-6 opacity-80">Revolutionizing rural healthcare through AI-driven telemedicine and human-centered care.</p>
+    </div>
+</section>
+
+<section class="bg-[#f8f9fa] py-24">
+    <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-5xl font-bold text-[#0a2540]">Our Intelligent Telemedicine Platform</h2>
+        <p class="text-lg text-[#555] mt-6">Designed for seamless, accessible, and effective healthcare delivery across remote regions.</p>
+
+        <div class="grid md:grid-cols-3 gap-12 mt-16">
+            <div class="bg-white p-10 shadow-2xl rounded-xl border border-gray-200">
+                <h3 class="text-2xl font-semibold text-[#0a2540]">🎙️ Voice-Based Interaction</h3>
+                <p class="text-gray-600 mt-4">AI-powered voice commands in Marathi, Hindi & English ensure accessibility for all.</p>
+            </div>
+            <div class="bg-white p-10 shadow-2xl rounded-xl border border-gray-200">
+                <h3 class="text-2xl font-semibold text-[#0a2540]">🩺 AI Symptom Analysis</h3>
+                <p class="text-gray-600 mt-4">Users can upload images for real-time AI-driven diagnosis and medical guidance.</p>
+            </div>
+            <div class="bg-white p-10 shadow-2xl rounded-xl border border-gray-200">
+                <h3 class="text-2xl font-semibold text-[#0a2540]">📞 Remote Doctor Consultations</h3>
+                <p class="text-gray-600 mt-4">Seamless video/audio consultations, directly or via Asha workers, ensuring expert medical access.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white py-24">
+    <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-5xl font-bold text-[#0a2540]">Why Choose Us?</h2>
+        <p class="text-lg text-[#555] mt-6">Innovative, accessible, and AI-powered healthcare solutions built for real impact.</p>
+
+        <div class="grid md:grid-cols-2 gap-12 mt-16 text-left">
+            <div class="flex items-center space-x-6">
+                <div class="text-[#0a2540] text-5xl">🏥</div>
+                <p class="text-lg text-gray-700">Available at post offices, government buildings, Gram Panchayats & schools.</p>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div class="text-[#0a2540] text-5xl">🌍</div>
+                <p class="text-lg text-gray-700">Supports Marathi, Hindi & English for seamless navigation across regions.</p>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div class="text-[#0a2540] text-5xl">⚡</div>
+                <p class="text-lg text-gray-700">Offline functionality ensures medical access in low-connectivity zones.</p>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div class="text-[#0a2540] text-5xl">🤝</div>
+                <p class="text-lg text-gray-700">Asha workers assist in registration, scheduling, and patient management.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="bg-gray-900 text-gray-300 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+        <!-- Newsletter Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-white text-3xl font-bold">Stay Updated</h2>
+            <p class="text-gray-400 mt-3 text-lg">Subscribe to our newsletter for the latest health tips and updates.</p>
+            <div class="mt-6 flex justify-center">
+                <input type="email" placeholder="Enter your email"
+                    class="w-80 px-5 py-3 rounded-l-lg bg-gray-800 border border-gray-600 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button class="px-6 py-3 bg-blue-600 text-white rounded-r-lg text-lg font-semibold hover:bg-blue-700 transition">Subscribe</button>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+            <!-- About -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-4">About ArogyaVani</h3>
+                <p class="text-gray-400 text-lg leading-relaxed">Arogyavani is a telemedicine platform designed to bridge healthcare accessibility gaps for illiterate and semi-literate individuals in rural India, utilizing voice commands, image recognition, and community support through Asha workers and local facilities like post offices, Gram Panchayats, and schools.</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Find Doctors</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Video Consult</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Medicines</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Lab Tests</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Surgeries</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Us -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-4">Contact Us</h3>
+                <p class="text-gray-400 text-lg">📧 <a href="mailto:support@practo.com" class="hover:text-blue-400">support@practo.com</a></p>
+                <p class="text-gray-400 text-lg mt-3">📞 <a href="tel:+18001234567" class="hover:text-blue-400">+1 800 123 4567</a></p>
+            </div>
+
+            <!-- Follow Us -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-4">Follow Us</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-blue-400 transition text-lg flex items-center"><span>📘</span> Facebook</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition text-lg flex items-center"><span>🐦</span> Twitter</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition text-lg flex items-center"><span>📸</span> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="border-t border-gray-700 mt-12 pt-6 text-center text-gray-500 text-lg">
+            &copy; 2025 ArogyaVani. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+    window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
+        },
+        effect: "fade",
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+    document.getElementById("menu-btn").addEventListener("click", function() {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+</script>
+</body>
+</html>
