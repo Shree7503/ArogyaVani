@@ -1,9 +1,4 @@
 {
-    "functions": {
-        "api/*.py": {
-          "includeFiles": ["api/templates/**"]
-        }
-    },
     "builds": [
         {
             "src": "api/main.py",
