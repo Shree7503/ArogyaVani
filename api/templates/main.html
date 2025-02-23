@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Healthcare Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+	
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <style>
         body, html {
@@ -12,12 +17,17 @@
             padding: 0;
             overflow-x: hidden;
         }
+
+		  .parallax {
+            will-change: transform;
+        }
         .navbar {
             background: transparent;
             transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             position: absolute;
             width: 100%;
             z-index: 10;
+			position: fixed;
         }
         .scrolled {
             background: rgba(0, 0, 0, 0.85);
@@ -145,6 +155,72 @@
     background: rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
 }
+/* Swiper Slide Base Styles */
+.swiper-slide {
+    width: 100%;
+    min-height: 100vh; /* Ensures full screen coverage */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: cover; 
+    position: relative;
+}
+
+/* Mobile Optimization: Keeps Full Height & Width */
+@media (max-width: 768px) {
+    .swiper-slide {
+        background-size: cover; /* Ensures full coverage on small screens */
+        background-position: center; /* Keeps image centered */
+        min-height: 100vh; /* Ensures full height coverage */
+    }
+}
+@keyframes bounce-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 3s infinite;
+}
+
+.animate-fade-in {
+    animation: fade-in 1.5s ease-out;
+}
+
+.animate-slide-in {
+    animation: slide-in 1s ease-out;
+}
+html {
+    scroll-behavior: smooth;
+}
+
 
 
 
@@ -156,12 +232,29 @@
     <button class="md:hidden text-white transition duration-300" id="menu-btn">
         &#9776;
     </button>
-    <ul class="hidden md:flex space-x-10 text-lg font-semibold transition duration-300" id="nav-links">
-        <li><a href="#" class="text-white hover:text-blue-600 transition duration-300">Services</a></li>
-        <li><a href="#" class="text-white hover:text-blue-600 transition duration-300">Doctors</a></li>
-        <li><a href="#" class="text-white hover:text-blue-600 transition duration-300">About Us</a></li>
-        <li><a href="#" class="text-white hover:text-blue-600 transition duration-300">Contact</a></li>
-    </ul>
+    <ul class="hidden md:flex space-x-12 text-[1.2rem] font-extrabold tracking-wide uppercase transition duration-300" id="nav-links">
+    <li>
+        <a href="#" class="text-white hover:text-blue-400 transition duration-300 relative after:absolute after:content-[''] after:w-full after:h-[3px] after:bg-blue-400 after:left-0 after:bottom-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300">
+            Services
+        </a>
+    </li>
+    <li>
+        <a href="#" class="text-white hover:text-blue-400 transition duration-300 relative after:absolute after:content-[''] after:w-full after:h-[3px] after:bg-blue-400 after:left-0 after:bottom-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300">
+            Doctors
+        </a>
+    </li>
+    <li>
+        <a href="#" class="text-white hover:text-blue-400 transition duration-300 relative after:absolute after:content-[''] after:w-full after:h-[3px] after:bg-blue-400 after:left-0 after:bottom-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300">
+            About Us
+        </a>
+    </li>
+    <li>
+        <a href="#" class="text-white hover:text-blue-400 transition duration-300 relative after:absolute after:content-[''] after:w-full after:h-[3px] after:bg-blue-400 after:left-0 after:bottom-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300">
+            Contact
+        </a>
+    </li>
+</ul>
+
     <button class="hidden md:block bg-blue-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-blue-700 transition">
         Sign In
     </button>
@@ -175,245 +268,734 @@
     <button id="close-menu" class="absolute top-4 right-4 text-2xl text-gray-800">
         &times; <!-- Cross symbol -->
     </button>
-    <ul class="space-y-6 text-center mt-20">
-        <li>
-            <a href="#" class="block text-gray-800 hover:text-teal-600 font-semibold text-xl transition duration-300">
-                Services
-            </a>
-        </li>
-        <li>
-            <a href="#" class="block text-gray-800 hover:text-teal-600 font-semibold text-xl transition duration-300">
-                Doctors
-            </a>
-        </li>
-        <li>
-            <a href="#" class="block text-gray-800 hover:text-teal-600 font-semibold text-xl transition duration-300">
-                About Us
-            </a>
-        </li>
-        <li>
-            <a href="#" class="block text-gray-800 hover:text-teal-600 font-semibold text-xl transition duration-300">
-                Contact
-            </a>
-        </li>
-    </ul>
+<ul class="space-y-8 text-center mt-20">
+    <li>
+        <a href="#" class="block text-gray-900 hover:text-blue-500 font-extrabold text-2xl tracking-wide transition duration-300 ease-in-out relative 
+        after:absolute after:content-[''] after:w-10 after:h-[3px] after:bg-blue-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:scale-x-0 
+        hover:after:scale-x-100 after:transition-transform after:duration-300">
+            Services
+        </a>
+    </li>
+    <li>
+        <a href="#" class="block text-gray-900 hover:text-blue-500 font-extrabold text-2xl tracking-wide transition duration-300 ease-in-out relative 
+        after:absolute after:content-[''] after:w-10 after:h-[3px] after:bg-blue-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:scale-x-0 
+        hover:after:scale-x-100 after:transition-transform after:duration-300">
+            Doctors
+        </a>
+    </li>
+    <li>
+        <a href="#" class="block text-gray-900 hover:text-blue-500 font-extrabold text-2xl tracking-wide transition duration-300 ease-in-out relative 
+        after:absolute after:content-[''] after:w-10 after:h-[3px] after:bg-blue-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:scale-x-0 
+        hover:after:scale-x-100 after:transition-transform after:duration-300">
+            About Us
+        </a>
+    </li>
+    <li>
+        <a href="#" class="block text-gray-900 hover:text-blue-500 font-extrabold text-2xl tracking-wide transition duration-300 ease-in-out relative 
+        after:absolute after:content-[''] after:w-10 after:h-[3px] after:bg-blue-500 after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:scale-x-0 
+        hover:after:scale-x-100 after:transition-transform after:duration-300">
+            Contact
+        </a>
+    </li>
+</ul>
+
+
 </div>
 
 
 
 
-<div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-        <!-- Slide 1 -->
-        <div class="swiper-slide" style="background-image: url('https://media.gettyimages.com/id/1130934349/photo/doctor-doing-social-service-in-village.jpg?s=612x612&w=0&k=20&c=rP9-cpT0u0N-MguSe6VMojakJ5-7r4IObQhMI1qNvGU=');">
-            <div class="overlay"></div>
-            <div class="hero-text">
-                आरोग्यं परमं धनम् <br> 
-                <span class="text-xl font-light">स्वस्थं जीवनस्य मूलम्</span> 
-                <br>
-                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
-                    हमारे साथ जुड़ें | Join Us
-                </button>
+ <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            
+            <!-- Slide 1 -->
+            <div class="swiper-slide" style="background-image: url('https://img.freepik.com/free-photo/portrait-woman-working-healthcare-system-as-pediatrician_23-2151686733.jpg?w=1800');">
+                <div class="overlay"></div>
+                <div class="hero-text">
+                    आरोग्यं परमं धनम् <br> 
+                    <span class="text-xl font-light">स्वस्थं जीवनस्य मूलम्</span> 
+                    <br>
+                    <button class="mt-4 px-6 py-3 bg-yellow-500 text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                        हमारे साथ जुड़ें | Join Us
+                    </button>
+                </div>
             </div>
+
+            <!-- Slide 2 -->
+            <div class="swiper-slide" style="background-image: url('https://img.freepik.com/premium-photo/international-day-eradication-poverty-empowering-communities_1198884-21736.jpg?w=1380');">
+                <div class="overlay"></div>
+                <div class="hero-text">
+                    चिकित्सा धर्मः <br>
+                    <span class="text-xl font-light">सेवा परमो धर्मः</span>
+                    <br>
+                    <button class="mt-4 px-6 py-3 bg-yellow-500 text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                        आरोग्य लाभः | Get Health Benefits
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide" style="background-image: url('https://img.freepik.com/premium-photo/international-day-eradication-poverty-empowering-communities_1198884-21811.jpg?w=1380');">
+                <div class="overlay"></div>
+                <div class="hero-text">
+                    सर्वे सन्तु निरामयाः <br> 
+                    <span class="text-xl font-light">सर्वे भवन्तु सुखिनः</span> 
+                    <br>
+                    <button class="mt-4 px-6 py-3 bg-yellow-500 text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                        चिकित्सकं सम्पर्कः | Contact a Doctor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="swiper-slide" style="background-image: url('https://img.freepik.com/free-photo/portrait-female-pediatrician-work_23-2151686731.jpg?w=1380');">
+                <div class="overlay"></div>
+                <div class="hero-text">
+                    आयुर्वेदस्य महत्त्वं <br>
+                    <span class="text-xl font-light">प्राकृतिक चिकित्सा श्रेष्ठा</span>
+                    <br>
+                    <button class="mt-4 px-6 py-3 bg-yellow-500 text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                        औषधि एवं चिकित्सा | Explore Ayurveda
+                    </button>
+                </div>
+            </div>
+			<!-- Slide 5: AI-Powered Diagnosis -->
+            <div class="swiper-slide" style="background-image: url('https://img.freepik.com/free-photo/portrait-woman-working-healthcare-system-as-pediatrician_23-2151686818.jpg?w=826');">
+                <div class="overlay"></div>
+                <div class="hero-text">
+                    कृत्रिम बुद्धिमत्ता निदानम् <br>
+                    <span class="text-xl font-light">रोगचिह्नानाम् परीक्षणाय चित्रं अपलोड्यताम्।</span>
+                    <br>
+                    <button class="mt-4 px-6 py-3 bg-yellow-500 text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                        अधिक जाणून घ्या | Learn More
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 6: Voice-Enabled Healthcare -->
+            <div class="swiper-slide" style="background-image: url('https://img.freepik.com/free-photo/portrait-female-pediatrician-work_23-2151686724.jpg?w=1480');">
+                <div class="overlay"></div>
+                <div class="hero-text">
+                    ध्वनि सहाय्येन आरोग्य सेवा <br>
+                    <span class="text-xl font-light">भारते मराठी-हिन्दी-इंग्रजी भाषासु मार्गदर्शनम्।</span>
+                    <br>
+                    <button class="mt-4 px-6 py-3 bg-yellow-500 text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                        अधिक जाणून घ्या | Learn More
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 7: Remote Doctor Consultations -->
+            <div class="swiper-slide" style="background-image: url('https://img.freepik.com/premium-photo/man-is-holding-paper-with-child-it_1153744-81811.jpg?w=1800');">
+                <div class="overlay"></div>
+                <div class="hero-text">
+                    दूरस्थ चिकित्सा सेवा <br>
+                    <span class="text-xl font-light">गृहे स्थित्वा चिकित्सकेन सम्पर्कः।</span>
+                    <br>
+                    <button class="mt-4 px-6 py-3 bg-yellow-500 text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
+                        अधिक जाणून घ्या | Learn More
+                    </button>
+                </div>
+            </div>
+
+
         </div>
 
-        <!-- Slide 2 -->
-        <div class="swiper-slide" style="background-image: url('https://media.istockphoto.com/id/1614148279/photo/indian-female-doctor-with-stethoscope-checking-little-child-patient-heart-beat-or-breath-at.jpg?s=2048x2048&w=is&k=20&c=WsIUhstzJNvpUNJEdVgirz0rYQXIawyhQzoRFlYPsLg=');">
-            <div class="overlay"></div>
-            <div class="hero-text">
-                चिकित्सा धर्मः <br>
-                <span class="text-xl font-light">सेवा परमो धर्मः</span>
-                <br>
-                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
-                    आरोग्य लाभः | Get Health Benefits
-                </button>
-            </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="swiper-slide" style="background-image: url('https://media.istockphoto.com/id/861222018/photo/doctor-giving-injection-to-the-patient.jpg?s=2048x2048&w=is&k=20&c=yivVyO1BvBPNofvLavB6n5b54fOu4CVRbTiqV08Rf5o=');">
-            <div class="overlay"></div>
-            <div class="hero-text">
-                सर्वे सन्तु निरामयाः <br> 
-                <span class="text-xl font-light">सर्वे भवन्तु सुखिनः</span> 
-                <br>
-                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
-                    चिकित्सकं सम्पर्कः | Contact a Doctor
-                </button>
-            </div>
-        </div>
-
-        <!-- Slide 4 -->
-        <div class="swiper-slide" style="background-image: url('https://c7.alamy.com/comp/2HBAKGN/young-indian-male-doctor-writing-prescription-on-paper-while-sitting-at-desk-outdoor-village-hospital-rural-healthcare-2HBAKGN.jpg');">
-            <div class="overlay"></div>
-            <div class="hero-text">
-                आयुर्वेदस्य महत्त्वं <br>
-                <span class="text-xl font-light">प्राकृतिक चिकित्सा श्रेष्ठा</span>
-                <br>
-                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
-                    औषधि एवं चिकित्सा | Explore Ayurveda
-                </button>
-            </div>
-        </div>
-
-        <!-- Slide 5: AI-Powered Diagnosis -->
-        <div class="swiper-slide" style="background-image: url('https://img.freepik.com/free-photo/man-working-as-paediatrician_23-2151696272.jpg?t=st=1739468318~exp=1739471918~hmac=01e255d3c3be6de3f64e8571c507606b724b8c4c892405f8186e852562a47297&w=1380');">
-            <div class="overlay"></div>
-            <div class="hero-text">
-                कृत्रिम बुद्धिमत्ता निदानम् <br>
-                <span class="text-xl font-light">"रोगचिह्नानाम् परीक्षणाय चित्रं अपलोड्यताम्।"</span>
-                <br>
-                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
-                    अधिक जाणून घ्या | Learn More
-                </button>
-            </div>
-        </div>
-
-        <!-- Slide 6: Voice-Enabled Assistance -->
-        <div class="swiper-slide" style="background-image: url('https://media.gettyimages.com/id/1064019662/photo/pediatrician-doctor-examining-ill-girl-at-village.jpg?s=612x612&w=0&k=20&c=SDj2bv9S4wBllpN3nG8j681tDJN27w1MQOx0nd-jC1U=');">
-            <div class="overlay"></div>
-            <div class="hero-text">
-                ध्वनि सहाय्येन आरोग्य सेवा <br>
-                <span class="text-xl font-light">भारते मराठी-हिन्दी-इंग्रजी भाषासु मार्गदर्शनम्।</span>
-                <br>
-                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
-                    अधिक जाणून घ्या | Learn More
-                </button>
-            </div>
-        </div>
-
-        <!-- Slide 7: Remote Doctor Consultations -->
-        <div class="swiper-slide" style="background-image: url('https://media.gettyimages.com/id/1680653991/photo/a-female-doctor-conducting-a-thorough-examination-of-a-child-during-a-rural-health-care-camp.jpg?s=612x612&w=0&k=20&c=L2Cuo2hiRzlDEuT-oAbMH36xzFmrP5k5Ivzsu2p5w24=');">
-            <div class="overlay"></div>
-            <div class="hero-text">
-                दूरस्थ चिकित्सा सेवा <br>
-                <span class="text-xl font-light">गृहे स्थित्वा चिकित्सकेन सम्पर्कः।</span>
-                <br>
-                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white text-lg rounded-full shadow-lg hover:bg-yellow-600 transition">
-                    अधिक जाणून घ्या | Learn More
-                </button>
-            </div>
-        </div>
+        <!-- Swiper Pagination & Navigation -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
-    <!-- Swiper Pagination & Navigation -->
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
+
+
+
+
+
+
+<section class="reveal">
+<section class="relative bg-gradient-to-b from-[#0a1a2a] to-[#121e2e] py-32 text-white">
+    
+    <!-- Section Title -->
+    <div class="max-w-7xl mx-auto text-center px-6">
+        <h2 class="text-6xl font-extrabold text-yellow-400 tracking-wide">
+            Healthcare That Reaches Every Home
+        </h2>
+        <p class="text-xl text-gray-300 mt-6 max-w-3xl mx-auto">
+            From villages to towns, we bring expert medical care closer to you—because **healthcare should be for everyone.**
+        </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16 max-w-7xl mx-auto px-6">
+        
+        <!-- Feature 1 -->
+        <div class="relative bg-[#121a2a] p-10 shadow-2xl rounded-xl border border-yellow-500/50 backdrop-blur-lg transition-all duration-500 hover:scale-110 hover:shadow-yellow-500/50">
+            <div class="text-6xl text-yellow-400 flex justify-center mb-4">🌍</div>
+            <h3 class="text-2xl font-extrabold text-gray-100 tracking-wide text-center">No Internet? No Problem.</h3>
+            <p class="mt-4 text-lg text-gray-300 leading-relaxed text-center">
+                Our **voice-enabled AI** works in low-network areas, guiding you through medical concerns in **Marathi, Hindi & English.**
+            </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="relative bg-[#121a2a] p-10 shadow-2xl rounded-xl border border-yellow-500/50 backdrop-blur-lg transition-all duration-500 hover:scale-110 hover:shadow-yellow-500/50">
+            <div class="text-6xl text-yellow-400 flex justify-center mb-4">🤒</div>
+            <h3 class="text-2xl font-extrabold text-gray-100 tracking-wide text-center">Worried About a Fever?</h3>
+            <p class="mt-4 text-lg text-gray-300 leading-relaxed text-center">
+                Just **upload a picture** of your symptoms like **rashes or eye redness**, and AI will suggest what to do next.
+            </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="relative bg-[#121a2a] p-10 shadow-2xl rounded-xl border border-yellow-500/50 backdrop-blur-lg transition-all duration-500 hover:scale-110 hover:shadow-yellow-500/50">
+            <div class="text-6xl text-yellow-400 flex justify-center mb-4">📞</div>
+            <h3 class="text-2xl font-extrabold text-gray-100 tracking-wide text-center">A Doctor, Just a Call Away</h3>
+            <p class="mt-4 text-lg text-gray-300 leading-relaxed text-center">
+                No need to travel miles. **Talk to a real doctor** from your home through a simple **phone or video call**.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CTA Button -->
+    <div class="mt-16 text-center">
+        <a href="#" class="px-8 py-4 bg-yellow-400 text-[#1a202c] text-lg font-bold rounded-full shadow-xl hover:bg-yellow-500 transition">
+            Get Help Now
+        </a>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+<section class="relative bg-fixed bg-cover bg-center py-32 text-center"
+    style="background-image: url('https://www.3blmedia.com/sites/default/files/styles/carousel_2x/public/images/iKure_pic_.jpg');">
+    
+    <!-- Dark Overlay for Readability -->
+   
+	<div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    
+    <!-- Content -->
+    <div class="relative max-w-6xl mx-auto px-6">
+        <h2 class="text-7xl font-extrabold tracking-tight leading-tight text-gray-100 drop-shadow-xl">
+            Bridging the Gap in Healthcare
+        </h2>
+        <p class="text-2xl mt-8 text-gray-200 opacity-100 max-w-3xl mx-auto">
+            AI-powered solutions bringing quality medical access to underserved communities.
+        </p>
+    </div>
+</section>
+
+<section class="relative bg-[#111827] text-white py-32">
+    <div class="max-w-6xl mx-auto text-center px-6">
+        <!-- Section Title -->
+        <h2 class="text-6xl font-extrabold text-yellow-400 tracking-wide">
+            Why Choose ArogyaVani?
+        </h2>
+        <p class="text-lg text-gray-300 mt-6 max-w-3xl mx-auto">
+            The next generation of healthcare—built for villages, powered by AI, accessible for all.
+        </p>
+
+        <!-- Steps Flow -->
+        <div class="mt-20 space-y-16">
+            
+            <!-- Step 1 -->
+            <div class="relative group flex flex-col items-center text-center p-8 rounded-xl bg-gradient-to-b from-[#1a2a40] to-[#0f172a] shadow-2xl border border-yellow-400/50 backdrop-blur-lg transition-all duration-500 hover:scale-110">
+    
+    <!-- Icon with Glowing Effect -->
+    <div class="w-24 h-24 flex items-center justify-center bg-[#0f172a] rounded-full text-5xl text-yellow-400 shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-yellow-500/50">
+        🏥
+    </div>
+
+    <!-- Title -->
+    <h3 class="mt-6 text-3xl font-extrabold text-gray-100 tracking-wide">
+        Healthcare at Your Doorstep
+    </h3>
+
+    <!-- Description -->
+    <p class="mt-4 text-lg text-gray-300 max-w-md leading-relaxed">
+        AI-powered <span class="text-yellow-400 font-semibold">health kiosks</span> at <span class="text-yellow-400 font-semibold">post offices, Panchayats & schools</span>—bringing care closer to home.
+    </p>
+
+    <!-- Subtle Animated Line -->
+    <div class="w-16 h-1 mt-4 bg-yellow-400 rounded-full transition-all duration-500 group-hover:w-20 group-hover:bg-yellow-500"></div>
 </div>
 
-
-
-<section class="bg-gradient-to-b from-[#0a2540] to-[#122b46] py-24 text-white text-center">
-    <div class="max-w-6xl mx-auto">
-        <h2 class="text-6xl font-extrabold tracking-tight">Transforming Healthcare Access</h2>
-        <p class="text-xl mt-6 opacity-80">Revolutionizing rural healthcare through AI-driven telemedicine and human-centered care.</p>
-    </div>
-</section>
-
-<section class="bg-[#f8f9fa] py-24">
-    <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-5xl font-bold text-[#0a2540]">Our Intelligent Telemedicine Platform</h2>
-        <p class="text-lg text-[#555] mt-6">Designed for seamless, accessible, and effective healthcare delivery across remote regions.</p>
-
-        <div class="grid md:grid-cols-3 gap-12 mt-16">
-            <div class="bg-white p-10 shadow-2xl rounded-xl border border-gray-200">
-                <h3 class="text-2xl font-semibold text-[#0a2540]">🎙️ Voice-Based Interaction</h3>
-                <p class="text-gray-600 mt-4">AI-powered voice commands in Marathi, Hindi & English ensure accessibility for all.</p>
+                
+                
             </div>
-            <div class="bg-white p-10 shadow-2xl rounded-xl border border-gray-200">
-                <h3 class="text-2xl font-semibold text-[#0a2540]">🩺 AI Symptom Analysis</h3>
-                <p class="text-gray-600 mt-4">Users can upload images for real-time AI-driven diagnosis and medical guidance.</p>
+			<!-- Animated Arrow -->
+                <center><svg class="w-20 h-32 text-yellow-400 transition-all duration-700 ease-in-out transform group-hover:translate-y-4 group-hover:scale-110 drop-shadow-xl"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor">
+                    <path d="M25 2c1.2 0 2 .8 2 2v30.5l8.2-8.2c.8-.8 2-.8 2.8 0s.8 2 0 2.8l-12 12c-.8.8-2 .8-2.8 0l-12-12c-.8-.8-.8-2 0-2.8s2-.8 2.8 0l8.2 8.2V4c0-1.2.8-2 2-2z"/>
+                </svg></center>
+
+            <!-- Step 2 -->
+            <div class="relative group flex flex-col items-center text-center p-8 rounded-xl bg-gradient-to-b from-[#1a2a40] to-[#0f172a] shadow-2xl border border-yellow-400/50 backdrop-blur-lg transition-all duration-500 hover:scale-110">
+    
+                <div class="w-24 h-24 flex items-center justify-center bg-[#0f172a] rounded-full text-5xl text-yellow-400 shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-yellow-500/50">
+                    🌍
+                </div>
+
+                <h3 class="mt-6 text-3xl font-extrabold text-gray-100 tracking-wide">
+                    Multi-Language Support
+                </h3>
+
+                <p class="mt-4 text-lg text-gray-300 max-w-md leading-relaxed">
+                    Seamlessly navigate in <span class="text-yellow-400 font-semibold">Marathi, Hindi & English</span>, ensuring <strong>effortless access</strong> to healthcare for all.
+                </p>
+
+                <div class="w-16 h-1 mt-4 bg-yellow-400 rounded-full transition-all duration-500 group-hover:w-20 group-hover:bg-yellow-500"></div>
             </div>
-            <div class="bg-white p-10 shadow-2xl rounded-xl border border-gray-200">
-                <h3 class="text-2xl font-semibold text-[#0a2540]">📞 Remote Doctor Consultations</h3>
-                <p class="text-gray-600 mt-4">Seamless video/audio consultations, directly or via Asha workers, ensuring expert medical access.</p>
+			<!-- Animated Arrow -->
+               <center> <svg class="w-20 h-32 text-yellow-400 transition-all duration-700 ease-in-out transform group-hover:translate-y-4 group-hover:scale-110 drop-shadow-xl"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor">
+                    <path d="M25 2c1.2 0 2 .8 2 2v30.5l8.2-8.2c.8-.8 2-.8 2.8 0s.8 2 0 2.8l-12 12c-.8.8-2 .8-2.8 0l-12-12c-.8-.8-.8-2 0-2.8s2-.8 2.8 0l8.2 8.2V4c0-1.2.8-2 2-2z"/>
+                </svg></center>
+
+            <!-- Step 3 -->
+            <div class="relative group flex flex-col items-center text-center p-8 rounded-xl bg-gradient-to-b from-[#1a2a40] to-[#0f172a] shadow-2xl border border-yellow-400/50 backdrop-blur-lg transition-all duration-500 hover:scale-110">
+    
+                <div class="w-24 h-24 flex items-center justify-center bg-[#0f172a] rounded-full text-5xl text-yellow-400 shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-yellow-500/50">
+                    ⚡
+                </div>
+
+                <h3 class="mt-6 text-3xl font-extrabold text-gray-100 tracking-wide">
+                    No Internet? No Problem.
+                </h3>
+
+                <p class="mt-4 text-lg text-gray-300 max-w-md leading-relaxed">
+                    <strong>Offline AI-based symptom analysis</strong> ensures care in even the <strong>most remote villages</strong> where connectivity is limited.
+                </p>
+
+                <div class="w-16 h-1 mt-4 bg-yellow-400 rounded-full transition-all duration-500 group-hover:w-20 group-hover:bg-yellow-500"></div>
             </div>
+			<!-- Animated Arrow -->
+                <center><svg class="w-20 h-32 text-yellow-400 transition-all duration-700 ease-in-out transform group-hover:translate-y-4 group-hover:scale-110 drop-shadow-xl"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor">
+                    <path d="M25 2c1.2 0 2 .8 2 2v30.5l8.2-8.2c.8-.8 2-.8 2.8 0s.8 2 0 2.8l-12 12c-.8.8-2 .8-2.8 0l-12-12c-.8-.8-.8-2 0-2.8s2-.8 2.8 0l8.2 8.2V4c0-1.2.8-2 2-2z"/>
+                </svg></center>
+
+            <!-- Step 4 -->
+            <div class="relative group flex flex-col items-center text-center p-8 rounded-xl bg-gradient-to-b from-[#1a2a40] to-[#0f172a] shadow-2xl border border-yellow-400/50 backdrop-blur-lg transition-all duration-500 hover:scale-110">
+    
+                <div class="w-24 h-24 flex items-center justify-center bg-[#0f172a] rounded-full text-5xl text-yellow-400 shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-yellow-500/50">
+                    🤝
+                </div>
+
+                <h3 class="mt-6 text-3xl font-extrabold text-gray-100 tracking-wide">
+                    Support from Asha Workers
+                </h3>
+
+                <p class="mt-4 text-lg text-gray-300 max-w-md leading-relaxed">
+                    <strong>On-ground assistance</strong> for <span class="text-yellow-400 font-semibold">registration, scheduling,</span> and patient care—empowering <strong>rural healthcare systems</strong> like never before.
+                </p>
+
+                <div class="w-16 h-1 mt-4 bg-yellow-400 rounded-full transition-all duration-500 group-hover:w-20 group-hover:bg-yellow-500"></div>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="mt-16">
+            <center><a href="#" class="px-10 py-4 bg-yellow-400 text-[#1a202c] text-lg font-bold rounded-full shadow-xl hover:bg-yellow-500 transition">
+                Get Started
+            </a></center>
         </div>
     </div>
 </section>
+	<div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+        <svg class="relative block w-full h-[80px]" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,96L120,80C240,64,480,32,720,42.7C960,53,1200,107,1320,128L1440,149L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z" fill="#ffffff"></path>
+        </svg>
+    </div> 
+<section class="relative bg-[#080d1a] text-white py-32">
+    <!-- Section Title -->
+    <div class="max-w-6xl mx-auto text-center px-6">
+        <h2 class="text-6xl font-extrabold text-yellow-400 tracking-wide">
+            Voices from the Villages
+        </h2>
+        <p class="text-xl text-gray-400 mt-6 max-w-3xl mx-auto">
+            **In the forgotten corners of India, where doctors are miles away, ArogyaVani became a lifeline.**
+        </p>
+    </div>
 
-<section class="bg-white py-24">
-    <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-5xl font-bold text-[#0a2540]">Why Choose Us?</h2>
-        <p class="text-lg text-[#555] mt-6">Innovative, accessible, and AI-powered healthcare solutions built for real impact.</p>
+    <!-- Stories Container -->
+    <div class="relative max-w-6xl mx-auto mt-16 space-y-16 px-6">
+        
+        <!-- Story 1: Kavita’s Fight for Survival -->
+        <div class="group relative flex flex-col md:flex-row items-center md:items-start">
+            
+            <!-- Image Container with Dark Overlay -->
+            <div class="relative md:w-1/2 w-full h-[250px] md:h-[400px] bg-cover bg-center rounded-lg shadow-lg transition-all duration-500 group-hover:scale-105 group-hover:shadow-yellow-500/50"
+                 style="background-image: url('https://www.globalgiving.org/pfil/17032/ph_17032_59401.jpg');">
+                <div class="absolute inset-0 bg-black/40 rounded-lg"></div>
+            </div>
 
-        <div class="grid md:grid-cols-2 gap-12 mt-16 text-left">
-            <div class="flex items-center space-x-6">
-                <div class="text-[#0a2540] text-5xl">🏥</div>
-                <p class="text-lg text-gray-700">Available at post offices, government buildings, Gram Panchayats & schools.</p>
+            <!-- Text Content -->
+            <div class="md:w-1/2 w-full md:ml-12 mt-8 md:mt-0 text-left">
+                <h3 class="text-3xl font-bold text-yellow-400 tracking-wide">"I almost lost my baby."</h3>
+                <p class="mt-4 text-lg text-gray-300 leading-relaxed">
+                    **Before:** Kavita, 8 months pregnant, was in pain. The nearest hospital? **70 km away**. No transport. No help. <br>  
+                    **After:** ArogyaVani **connected her to a doctor in 10 minutes**. Today, she holds her child in her arms.
+                </p>
+                <span class="text-yellow-300 text-lg block mt-4">📍 Bihar, India</span>
             </div>
-            <div class="flex items-center space-x-6">
-                <div class="text-[#0a2540] text-5xl">🌍</div>
-                <p class="text-lg text-gray-700">Supports Marathi, Hindi & English for seamless navigation across regions.</p>
+        </div>
+
+        <!-- Story 2: Mohan’s Battle with Time -->
+        <div class="group relative flex flex-col md:flex-row-reverse items-center md:items-start">
+            
+            <!-- Image Container with Dark Overlay -->
+            <div class="relative md:w-1/2 w-full h-[250px] md:h-[400px] bg-cover bg-center rounded-lg shadow-lg transition-all duration-500 group-hover:scale-105 group-hover:shadow-yellow-500/50"
+                 style="background-image: url('https://media.istockphoto.com/id/950210926/photo/rural-village-dark-skin-indian-old-man.jpg?s=612x612&w=0&k=20&c=caEguWlrNYmQ-5vVFk9JwWRfvKJ1bfi64BA9twmCago=');">
+                <div class="absolute inset-0 bg-black/40 rounded-lg"></div>
             </div>
-            <div class="flex items-center space-x-6">
-                <div class="text-[#0a2540] text-5xl">⚡</div>
-                <p class="text-lg text-gray-700">Offline functionality ensures medical access in low-connectivity zones.</p>
+
+            <!-- Text Content -->
+            <div class="md:w-1/2 w-full md:mr-12 mt-8 md:mt-0 text-left">
+                <h3 class="text-3xl font-bold text-yellow-400 tracking-wide">"If we had waited, he wouldn’t be here today."</h3>
+                <p class="mt-4 text-lg text-gray-300 leading-relaxed">
+                    **Before:** Mohan, 64, collapsed from a stroke at 2 AM. His family had no phone, no ambulance, no hope.  
+                    **After:** ArogyaVani’s **emergency call connected them instantly**. An ambulance arrived in **15 minutes**, saving his life.
+                </p>
+                <span class="text-yellow-300 text-lg block mt-4">📍 Rajasthan, India</span>
             </div>
-            <div class="flex items-center space-x-6">
-                <div class="text-[#0a2540] text-5xl">🤝</div>
-                <p class="text-lg text-gray-700">Asha workers assist in registration, scheduling, and patient management.</p>
-            </div>
+        </div>
+
+    </div>
+</section>
+<section class="relative bg-[#0a0f1d] text-white py-32 overflow-hidden">
+    
+    <!-- Background Animation -->
+    <div class="absolute inset-0 bg-[url('https://www.shutterstock.com/shutterstock/videos/1098850793/thumb/1.jpg?ip=x480')] bg-cover bg-center opacity-20"></div>
+	
+
+    <!-- Section Title -->
+    <div class="max-w-6xl mx-auto text-center px-6 relative">
+        <h2 class="text-6xl font-extrabold text-yellow-400 tracking-wide">ArogyaVani: A Story That Unfolds</h2>
+        <p class="text-xl text-gray-300 mt-6 max-w-3xl mx-auto">
+            **A revolutionary blend of AI and human-driven care, reshaping healthcare for India’s rural communities.**
+        </p>
+    </div>
+
+    <!-- Story Cards Container -->
+    <div class="relative max-w-7xl mx-auto mt-16 flex flex-col space-y-12 px-6">
+        
+        <!-- Story 1 -->
+        <div class="relative w-full bg-[#121a2a] p-10 rounded-xl shadow-2xl border border-yellow-500/50 backdrop-blur-lg transform translate-y-10 hover:scale-105 transition-all duration-500">
+            <h3 class="text-4xl font-bold text-blue-400">The Origin</h3>
+            <p class="text-lg text-gray-300 mt-4">ArogyaVani was born from a simple idea: **What if AI could reach those whom traditional healthcare couldn’t?**</p>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="relative w-full bg-[#1a2a40] p-10 rounded-xl shadow-2xl border border-yellow-500/50 backdrop-blur-lg transform translate-y-10 hover:scale-105 transition-all duration-500">
+            <h3 class="text-4xl font-bold text-yellow-400">Bridging the Gap</h3>
+            <p class="text-lg text-gray-300 mt-4">Rural patients often travel miles for care. **ArogyaVani brought doctors to them—instantly, through AI-powered telemedicine.**</p>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="relative w-full bg-[#222a50] p-10 rounded-xl shadow-2xl border border-yellow-500/50 backdrop-blur-lg transform translate-y-10 hover:scale-105 transition-all duration-500">
+            <h3 class="text-4xl font-bold text-green-400">Beyond Just AI</h3>
+            <p class="text-lg text-gray-300 mt-4">Technology is only half the story. **We empower ASHA workers, local clinics, and real humans to make AI truly impactful.**</p>
         </div>
     </div>
 </section>
-<footer class="bg-gray-900 text-gray-300 py-16">
+</section>
+<!-- Arogyavani Components Section -->
+<!-- Arogyavani Components Section -->
+<section class="relative pt-32 pb-24 bg-[#050a18] text-white min-h-screen flex justify-center items-center overflow-hidden">
+  
+  <!-- Background Effect -->
+  <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0b1120] opacity-20 pointer-events-none"></div>
+  
+  <div class="max-w-7xl w-full px-6 relative z-10">
+    <!-- Section Title -->
+    <h2 class="text-5xl font-extrabold text-center uppercase tracking-wider text-[#facc15]">
+      Arogyavani Framework
+    </h2>
+    <p class="text-gray-300 text-center mt-4 text-lg max-w-3xl mx-auto">
+      The Three Pillars of Healthcare Synergy: Doctors, ASHA Workers, and Government Establishments.
+    </p>
+
+    <div class="relative mt-20 grid grid-cols-1 md:grid-cols-3 gap-12">
+      
+      <!-- Doctors Component -->
+      <div class="relative group bg-gradient-to-br from-[#1c2230] to-[#0f121b] p-10 rounded-2xl shadow-xl border border-[#3b82f6]/60 
+                  transition-all transform hover:scale-105 hover:shadow-blue-500/40">
+        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[#3b82f6] text-white px-6 py-2 rounded-full text-lg font-semibold shadow-md group-hover:scale-110 transition">
+          👨‍⚕️ Doctors
+        </div>
+        <p class="mt-12 text-gray-300 text-lg leading-relaxed">
+          Doctors diagnose, treat, and ensure patient well-being through AI-powered digital healthcare.
+        </p>
+        <div class="mt-6 flex flex-col gap-2 text-gray-400">
+          <p><span class="text-green-400">✔️ Diagnosis & Treatment</span></p>
+          <p><span class="text-yellow-400">✔️ Patient Consultation</span></p>
+          <p><span class="text-blue-400">✔️ Emergency Handling</span></p>
+        </div>
+        <a href="#" class="mt-6 inline-block text-blue-400 font-medium underline hover:text-blue-500 transition">Explore More →</a>
+      </div>
+
+      <!-- ASHA Workers Component -->
+      <div class="relative group bg-gradient-to-br from-[#1c2a21] to-[#0f1912] p-10 rounded-2xl shadow-xl border border-[#34d399]/60 
+                  transition-all transform hover:scale-105 hover:shadow-green-500/40">
+        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[#34d399] text-white px-6 py-2 rounded-full text-lg font-semibold shadow-md group-hover:scale-110 transition">
+          🏡 ASHA Workers
+        </div>
+        <p class="mt-12 text-gray-300 text-lg leading-relaxed">
+          ASHA Workers bridge the gap between communities and healthcare, providing real-time health monitoring.
+        </p>
+        <div class="mt-6 flex flex-col gap-2 text-gray-400">
+          <p><span class="text-green-400">✔️ Community Health Support</span></p>
+          <p><span class="text-yellow-400">✔️ Patient Tracking & Assistance</span></p>
+          <p><span class="text-blue-400">✔️ Emergency Alerts</span></p>
+        </div>
+        <a href="#" class="mt-6 inline-block text-green-400 font-medium underline hover:text-green-500 transition">Explore More →</a>
+      </div>
+
+      <!-- Government Establishments Component -->
+      <div class="relative group bg-gradient-to-br from-[#2a1c30] to-[#191018] p-10 rounded-2xl shadow-xl border border-[#f59e0b]/60 
+                  transition-all transform hover:scale-105 hover:shadow-yellow-500/40">
+        <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[#f59e0b] text-white px-6 py-2 rounded-full text-lg font-semibold shadow-md group-hover:scale-110 transition">
+          🏛 Govt. Establishments
+        </div>
+        <p class="mt-12 text-gray-300 text-lg leading-relaxed">
+          Panchayats & Zilla Parishads ensure policy execution, oversee medical programs, and fund essential healthcare.
+        </p>
+        <div class="mt-6 flex flex-col gap-2 text-gray-400">
+          <p><span class="text-green-400">✔️ Policy Implementation</span></p>
+          <p><span class="text-yellow-400">✔️ Budget Allocation</span></p>
+          <p><span class="text-blue-400">✔️ Rural Health Development</span></p>
+        </div>
+        <a href="#" class="mt-6 inline-block text-yellow-400 font-medium underline hover:text-yellow-500 transition">Explore More →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Relationship Diagram Section -->
+<section class="relative pt-32 pb-24 bg-[#050a18] text-white flex justify-center items-center overflow-hidden">
+    
+    <!-- Background Effect -->
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0b1120] opacity-20 pointer-events-none"></div>
+    
+    <div class="max-w-7xl w-full px-6 relative z-10 text-center">
+        
+        <!-- Section Title -->
+        <h2 class="text-5xl font-extrabold text-[#facc15] tracking-wide">How Arogyavani Bridges Healthcare</h2>
+        <p class="text-gray-300 text-lg mt-4 max-w-3xl mx-auto">
+            Arogyavani connects Doctors, ASHA Workers, and Government Establishments, ensuring seamless healthcare access in remote regions.
+        </p>
+
+        <!-- Diagram Container -->
+        <div class="relative mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+            
+            <!-- ASHA Workers -->
+            <div class="relative group flex flex-col items-center bg-gradient-to-br from-[#1c2a21] to-[#0f1912] p-8 rounded-2xl shadow-xl border border-[#34d399]/60 
+                        transition-all transform hover:scale-105 hover:shadow-green-500/40 w-full">
+                <div class="text-5xl">🏡</div>
+                <h3 class="text-2xl font-semibold text-green-400 mt-4">ASHA Workers</h3>
+                <p class="text-gray-300 text-lg mt-2 text-center">Connecting rural patients to doctors & providing primary healthcare.</p>
+                <div class="absolute hidden md:block top-1/2 right-[-40px] transform -translate-y-1/2">
+                    <svg class="w-16 h-16 text-green-400 group-hover:scale-110 transition-all" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 17l5-5-5-5v10z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Arogyavani Central Node -->
+            <div class="relative flex flex-col items-center bg-gradient-to-br from-[#1a2338] to-[#101725] p-10 rounded-full shadow-2xl border border-[#facc15]/60 
+                        transition-all transform hover:scale-105 hover:shadow-yellow-500/40 w-full">
+                <div class="text-5xl">🔗</div>
+                <h3 class="text-3xl font-extrabold text-yellow-400 mt-4">Arogyavani</h3>
+                <p class="text-gray-300 text-lg mt-2 text-center">The AI-driven platform connecting healthcare services.</p>
+            </div>
+
+            <!-- Doctors -->
+            <div class="relative group flex flex-col items-center bg-gradient-to-br from-[#1c2230] to-[#0f121b] p-8 rounded-2xl shadow-xl border border-[#3b82f6]/60 
+                        transition-all transform hover:scale-105 hover:shadow-blue-500/40 w-full">
+                <div class="text-5xl">👨‍⚕️</div>
+                <h3 class="text-2xl font-semibold text-blue-400 mt-4">Doctors</h3>
+                <p class="text-gray-300 text-lg mt-2 text-center">Providing telemedicine and emergency medical consultation.</p>
+                <div class="absolute hidden md:block top-1/2 left-[-40px] transform -translate-y-1/2">
+                    <svg class="w-16 h-16 text-blue-400 group-hover:scale-110 transition-all rotate-180" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 17l5-5-5-5v10z"/>
+                    </svg>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Government Establishments Below -->
+        <div class="relative mt-12 flex flex-col items-center">
+            <svg class="w-12 h-12 text-yellow-400 animate-bounce transition-all duration-500 hidden md:block" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l5 5-5 5-5-5 5-5zm0 14l-5 5 5 5 5-5-5-5z"/>
+            </svg>
+            <div class="relative group flex flex-col items-center bg-gradient-to-br from-[#2a1c30] to-[#191018] p-8 rounded-2xl shadow-xl border border-[#f59e0b]/60 
+                        transition-all transform hover:scale-105 hover:shadow-yellow-500/40 w-full max-w-lg">
+                <div class="text-5xl">🏛</div>
+                <h3 class="text-2xl font-semibold text-yellow-400 mt-4">Govt. Establishments</h3>
+                <p class="text-gray-300 text-lg mt-2 text-center">Ensuring policy execution, funding & healthcare infrastructure.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- Ultimate Goal Section -->
+<!-- Ultimate Goal Section -->
+<section class="relative bg-fixed bg-cover bg-center text-white py-32" 
+    style="background-image: url('https://media.istockphoto.com/id/984020344/photo/child-playing-outdoor-in-the-nature.jpg?s=612x612&w=0&k=20&c=6XWzu5qIP1P4HNIVIr_gAel4WDzrTZRee0rGHU9LARk=');">
+    
+    <!-- Dark Overlay for Readability -->
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+    <!-- Content -->
+    <div class="relative max-w-6xl mx-auto text-center px-6 animate-fade-in-up">
+        
+        <!-- Catchy Heading with Neon Effect -->
+        <h2 class="text-6xl font-extrabold tracking-wide leading-tight text-transparent bg-clip-text 
+                    bg-gradient-to-r from-yellow-400 to-orange-500 drop-shadow-2xl">
+            Transforming Lives, One Village at a Time
+        </h2>
+
+        <!-- Subheading -->
+        <p class="text-2xl mt-6 max-w-3xl mx-auto text-gray-200 leading-relaxed">
+            Our mission is to **bridge the healthcare gap** with **AI-driven telemedicine, real-time diagnostics, and a connected health network**—empowering even the most remote communities.
+        </p>
+
+        <!-- Features Grid with Glassmorphism Effect -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            
+            <!-- Feature 1 -->
+            <div class="relative bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-yellow-400/50 shadow-lg transform hover:scale-105 transition">
+                <h3 class="text-2xl font-semibold text-yellow-400">🚀 AI-Powered Health Kiosks</h3>
+                <p class="mt-2 text-gray-300">Bringing **instant medical guidance** to remote villages with **AI-driven diagnosis.**</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="relative bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-blue-400/50 shadow-lg transform hover:scale-105 transition">
+                <h3 class="text-2xl font-semibold text-blue-400">🤝 Empowering ASHA Workers</h3>
+                <p class="mt-2 text-gray-300">Providing **advanced tools** for **patient tracking & early intervention.**</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="relative bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-green-400/50 shadow-lg transform hover:scale-105 transition">
+                <h3 class="text-2xl font-semibold text-green-400">🏥 Affordable Rural Healthcare</h3>
+                <p class="mt-2 text-gray-300">Ensuring **quality treatment reaches every doorstep** with affordability & accessibility.</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="relative bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-pink-400/50 shadow-lg transform hover:scale-105 transition">
+                <h3 class="text-2xl font-semibold text-pink-400">🌍 A Unified Healthcare Network</h3>
+                <p class="mt-2 text-gray-300">Connecting **doctors, patients & authorities seamlessly** for better healthcare delivery.</p>
+            </div>
+        </div>
+
+        <!-- Call to Action Button -->
+        <div class="mt-16">
+            <a href="#" class="px-10 py-4 bg-yellow-500 text-[#1a202c] text-lg font-bold rounded-full shadow-xl hover:bg-yellow-600 transition-all hover:scale-105">
+                **Join the Movement →**
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+ 
+
+
+
+
+
+<footer class="relative bg-[#050a18] text-gray-300 py-20">
     <div class="max-w-7xl mx-auto px-6">
-        <!-- Newsletter Section -->
-        <div class="text-center mb-12">
-            <h2 class="text-white text-3xl font-bold">Stay Updated</h2>
-            <p class="text-gray-400 mt-3 text-lg">Subscribe to our newsletter for the latest health tips and updates.</p>
-            <div class="mt-6 flex justify-center">
+        
+        <!-- 🌟 Newsletter Section -->
+        <div class="text-center mb-16">
+            <h2 class="text-5xl font-extrabold text-white tracking-wide drop-shadow-lg">
+                Stay Connected with <span class="text-yellow-400">ArogyaVani</span>
+            </h2>
+            <p class="text-gray-400 mt-4 text-lg max-w-2xl mx-auto leading-relaxed">
+                Join our community & get the latest health updates, expert advice, and innovations in telemedicine.
+            </p>
+            <div class="mt-8 flex justify-center">
                 <input type="email" placeholder="Enter your email"
-                    class="w-80 px-5 py-3 rounded-l-lg bg-gray-800 border border-gray-600 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button class="px-6 py-3 bg-blue-600 text-white rounded-r-lg text-lg font-semibold hover:bg-blue-700 transition">Subscribe</button>
+                    class="w-96 px-6 py-4 rounded-l-lg bg-white/10 border border-gray-500 text-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition placeholder-gray-400">
+                <button class="px-8 py-4 bg-yellow-500 text-gray-900 rounded-r-lg text-lg font-semibold hover:bg-yellow-600 transition-all hover:scale-105 shadow-lg">
+                    Subscribe →
+                </button>
             </div>
         </div>
 
-        <!-- Footer Links -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-            <!-- About -->
-            <div>
-                <h3 class="text-white text-xl font-semibold mb-4">About ArogyaVani</h3>
-                <p class="text-gray-400 text-lg leading-relaxed">Arogyavani is a telemedicine platform designed to bridge healthcare accessibility gaps for illiterate and semi-literate individuals in rural India, utilizing voice commands, image recognition, and community support through Asha workers and local facilities like post offices, Gram Panchayats, and schools.</p>
+        <!-- 🌟 Footer Links Section -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 text-gray-400">
+            
+            <!-- About ArogyaVani -->
+            <div class="space-y-4">
+                <h3 class="text-white text-2xl font-bold">About ArogyaVani</h3>
+                <p class="leading-relaxed text-lg">
+                    A cutting-edge telemedicine platform **empowering rural India** with AI-powered healthcare solutions, voice commands, and community-driven support.
+                </p>
             </div>
 
             <!-- Quick Links -->
-            <div>
-                <h3 class="text-white text-xl font-semibold mb-4">Quick Links</h3>
+            <div class="space-y-4">
+                <h3 class="text-white text-2xl font-bold">Quick Links</h3>
                 <ul class="space-y-3">
-                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Find Doctors</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Video Consult</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Medicines</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Lab Tests</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition text-lg">Surgeries</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🔎 Find Doctors</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">📹 Video Consult</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">💊 Medicines</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🧪 Lab Tests</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🔧 Surgeries</a></li>
                 </ul>
             </div>
 
             <!-- Contact Us -->
-            <div>
-                <h3 class="text-white text-xl font-semibold mb-4">Contact Us</h3>
-                <p class="text-gray-400 text-lg">📧 <a href="mailto:support@practo.com" class="hover:text-blue-400">support@practo.com</a></p>
-                <p class="text-gray-400 text-lg mt-3">📞 <a href="tel:+18001234567" class="hover:text-blue-400">+1 800 123 4567</a></p>
+            <div class="space-y-4">
+                <h3 class="text-white text-2xl font-bold">Contact Us</h3>
+                <p class="text-lg flex items-center gap-2">
+                    📧 <a href="mailto:support@arogyavani.com" class="hover:text-yellow-400 transition-all">support@arogyavani.com</a>
+                </p>
+                <p class="text-lg mt-3 flex items-center gap-2">
+                    📞 <a href="tel:+18001234567" class="hover:text-yellow-400 transition-all">+91 800 123 4567</a>
+                </p>
             </div>
 
-            <!-- Follow Us -->
-            <div>
-                <h3 class="text-white text-xl font-semibold mb-4">Follow Us</h3>
+            <!-- Social Media Links -->
+            <div class="space-y-4">
+                <h3 class="text-white text-2xl font-bold">Follow Us</h3>
                 <ul class="space-y-3">
-                    <li><a href="#" class="hover:text-blue-400 transition text-lg flex items-center"><span>📘</span> Facebook</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition text-lg flex items-center"><span>🐦</span> Twitter</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition text-lg flex items-center"><span>📸</span> Instagram</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">📘 Facebook</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">🐦 Twitter</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">📸 Instagram</a></li>
                 </ul>
             </div>
+
         </div>
 
-        <!-- Bottom -->
-        <div class="border-t border-gray-700 mt-12 pt-6 text-center text-gray-500 text-lg">
-            &copy; 2025 ArogyaVani. All rights reserved.
+        <!-- 🌟 Elegant Divider -->
+        <div class="mt-16 border-t border-gray-700 opacity-50"></div>
+
+        <!-- 🌟 Bottom Footer -->
+        <div class="mt-10 flex flex-col sm:flex-row justify-between items-center text-gray-500 text-lg">
+            <p>&copy; 2025 <span class="text-yellow-400 font-semibold">ArogyaVani</span>. All rights reserved.</p>
+            <ul class="flex space-x-6 mt-4 sm:mt-0">
+                <li><a href="#" class="hover:text-yellow-400 transition">Privacy Policy</a></li>
+                <li><a href="#" class="hover:text-yellow-400 transition">Terms of Service</a></li>
+            </ul>
         </div>
     </div>
 </footer>
+
 
 
 
@@ -461,6 +1043,49 @@ function openMenu() {
 closeButton.addEventListener('click', () => {
     menu.classList.add('hidden'); // Hide the mobile menu
 });
+    gsap.registerPlugin(ScrollTrigger);
+    
+    document.querySelectorAll(".relative.w-full").forEach((el, index) => {
+        gsap.fromTo(el, 
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1.5, ease: "power2.out", scrollTrigger: {
+                trigger: el,
+                start: "top 80%",
+                toggleActions: "play none none none"
+            }}
+        );
+    });
+	
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+module.exports = {
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
+};
+// Register ScrollTrigger Plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// Apply animation to only sections with class 'reveal'
+gsap.utils.toArray(".reveal").forEach((section) => {
+    gsap.from(section, {
+        opacity: 0,       // Start invisible
+        scale: 0.9,       // Start slightly smaller
+        y: 50,            // Start slightly lower
+        duration: 1.2,    // Smooth transition
+        ease: "power3.out", // Natural motion
+        scrollTrigger: {
+            trigger: section,
+            start: "top 80%", // Animation triggers when section is 80% in viewport
+            end: "top 50%",   // Ends when section reaches 50% of viewport
+            toggleActions: "play none none none", // Plays once
+        }
+    });
+});
+
+
+
+
 
 	
 	
