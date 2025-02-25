@@ -86,6 +86,10 @@
     <h2 class="text-4xl sm:text-5xl font-extrabold text-center text-[#081c36] mb-8 tracking-wide">
     🏥 Health Worker Monitoring Panel
 </h2>
+<br>
+<br>
+<h2 class="text-3xl font-bold text-center text-[#081c36] mb-6">🩺 Patient & Disease Monitoring Hub</h2>
+
 
 
     <section class="p-6 bg-white shadow-lg rounded-xl border border-gray-200">
@@ -171,6 +175,99 @@
         </table>
     </div>
 </section>	
+<section class="p-6">
+    <!-- Section Heading -->
+    <h2 class="text-3xl font-bold text-center text-[#081c36] mb-6">🤖 AI-Powered Prescription Analysis & Monitoring<</h2>
+
+    <!-- Search Bar -->
+    <div class="mb-4 flex justify-end">
+        <input type="text" id="searchInput" placeholder=" Search records..." 
+            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent" 
+            onkeyup="filterTable()">
+    </div>
+
+    <!-- Table Container -->
+    <div class="overflow-x-auto bg-white shadow-lg rounded-xl border border-gray-200">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-[#081c36] text-white text-lg uppercase">
+                <tr>
+                    <th class="py-4 px-5">ASHA Worker</th>
+                    <th class="py-4 px-5">Patient Name</th>
+                    <th class="py-4 px-5">Head of Family</th>
+                    <th class="py-4 px-5">Prescription</th>
+                    <th class="py-4 px-5">AI Analysis</th>
+                    <th class="py-4 px-5">Video Call Status</th>
+                    <th class="py-4 px-5">Doctor (Video Call)</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody" class="text-gray-800 text-lg">
+                <!-- Data will be inserted dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center hidden">
+        <div class="relative">
+            <!-- Close Button -->
+            <button onclick="closeImage()" class="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-full text-lg font-bold shadow-lg">
+                ✕
+            </button>
+            <!-- Full Image -->
+            <img id="modalImage" class="max-w-full max-h-screen rounded-lg shadow-xl">
+        </div>
+    </div>
+</section>
+<section class="p-6">
+    <!-- Section Heading -->
+    <h2 class="text-3xl font-bold text-center text-[#081c36] mb-6">🦠 Disease Surveillance & Outbreak Analytics</h2>
+    <p class="text-lg text-center text-gray-700 mb-8">
+        Track and analyze **disease outbreaks** using real-time data. Identify trends, affected regions, and response measures.
+    </p>
+
+    <!-- Search Bar -->
+    <div class="mb-6 flex justify-end">
+        <input type="text" id="searchDisease" placeholder="Search by disease or region..." 
+            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent" 
+            onkeyup="filterDiseaseTable()">
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Disease Trend Line Chart -->
+        <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+            <h3 class="text-xl font-semibold text-[#081c36] mb-4">📈 Disease Outbreak Trends</h3>
+            <canvas id="diseaseChart"></canvas>
+        </div>
+
+        <!-- Affected Regions Pie Chart -->
+        <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+            <h3 class="text-xl font-semibold text-[#081c36] mb-4">🌍 Affected Regions Breakdown</h3>
+            <canvas id="regionChart"></canvas>
+        </div>
+
+    </div>
+
+    <!-- Table Container -->
+    <div class="mt-8 overflow-x-auto bg-white shadow-lg rounded-xl border border-gray-200">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-[#081c36] text-white text-lg uppercase">
+                <tr>
+                    <th class="py-4 px-5 cursor-pointer" onclick="sortDiseaseTable(0)">Disease</th>
+                    <th class="py-4 px-5 cursor-pointer" onclick="sortDiseaseTable(1)">Region</th>
+                    <th class="py-4 px-5 cursor-pointer" onclick="sortDiseaseTable(2)">Reported Cases</th>
+                    <th class="py-4 px-5 cursor-pointer" onclick="sortDiseaseTable(3)">Severity</th>
+                    <th class="py-4 px-5 cursor-pointer" onclick="sortDiseaseTable(4)">Response Status</th>
+                </tr>
+            </thead>
+            <tbody id="diseaseTable" class="text-gray-800 text-lg">
+                <!-- Data will be inserted dynamically -->
+            </tbody>
+        </table>
+    </div>
+</section>
+
 </div>
 
 
@@ -437,6 +534,7 @@ document.getElementById("voice-btn").addEventListener("click", () => {
 });	
 
 
+
 	
 
 </script>
@@ -525,6 +623,161 @@ document.addEventListener("DOMContentLoaded", function () {
     window.openPatientPage = openPatientPage;
     vaccineSearchInput.addEventListener("input", searchVaccineTable);
 });
+const prescriptions = [
+        {
+            asha: "Sita Devi",
+            patient: "Ramesh Kumar",
+            head: "Shyam Kumar",
+            image: "https://i.ytimg.com/vi/9D-nASQk5cI/maxresdefault.jpg",
+            analysis: "Possible Infection Detected",
+            videoCall: "Completed",
+            doctor: "Dr. Verma"
+        },
+        {
+            asha: "Radha Yadav",
+            patient: "Pooja Singh",
+            head: "Ravi Singh",
+            image: "https://i.ytimg.com/vi/9D-nASQk5cI/maxresdefault.jpg",
+            analysis: "No critical issues detected",
+            videoCall: "Pending",
+            doctor: "-"
+        }
+    ];
+
+    // Populate Table on Page Load
+    document.addEventListener("DOMContentLoaded", () => {
+        const tableBody = document.getElementById("tableBody");
+
+        prescriptions.forEach(data => {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                <td class="p-2 border">${data.asha}</td>
+                <td class="p-2 border">${data.patient}</td>
+                <td class="p-2 border">${data.head}</td>
+                <td class="p-2 border">
+                    <img src="${data.image}" alt="Prescription" class="w-16 h-16 object-cover rounded cursor-pointer" onclick="viewImage('${data.image}')">
+                </td>
+                <td class="p-2 border">${data.analysis}</td>
+                <td class="p-2 border ${data.videoCall === 'Completed' ? 'text-green-600' : 'text-red-600'}">${data.videoCall}</td>
+                <td class="p-2 border">${data.doctor}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        document.getElementById("searchInput").addEventListener("keyup", filterTable);
+    });
+
+    // Search Filter Function
+    function filterTable() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let tableRows = document.querySelectorAll("#tableBody tr");
+
+        tableRows.forEach(row => {
+            let text = row.textContent.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+        });
+    }
+
+    // Image Preview Function
+    function viewImage(src) {
+        document.getElementById("modalImage").src = src;
+        document.getElementById("imageModal").classList.remove("hidden");
+    }
+
+    function closeImage() {
+        document.getElementById("imageModal").classList.add("hidden");
+    }
+	// Sample Disease Data
+    const diseaseData = [
+        { disease: "Dengue", region: "Mumbai", cases: 350, severity: "High", response: "Ongoing" },
+        { disease: "COVID-19", region: "Delhi", cases: 1200, severity: "Critical", response: "Lockdown Measures" },
+        { disease: "Malaria", region: "Kolkata", cases: 200, severity: "Moderate", response: "Medical Camps" },
+        { disease: "Cholera", region: "Bangalore", cases: 50, severity: "Low", response: "Water Treatment" },
+        { disease: "Swine Flu", region: "Pune", cases: 180, severity: "High", response: "Mass Vaccination" }
+    ];
+
+    // Populate Table on Page Load
+    document.addEventListener("DOMContentLoaded", () => {
+        const tableBody = document.getElementById("diseaseTable");
+
+        diseaseData.forEach(data => {
+            let row = document.createElement("tr");
+            row.className = "hover:bg-gray-100 transition duration-200 text-gray-700 text-lg";
+            row.innerHTML = `
+                <td class="py-4 px-5 border">${data.disease}</td>
+                <td class="py-4 px-5 border">${data.region}</td>
+                <td class="py-4 px-5 border">${data.cases}</td>
+                <td class="py-4 px-5 border font-bold ${
+                    data.severity === "Critical" ? "text-red-600" :
+                    data.severity === "High" ? "text-orange-500" :
+                    data.severity === "Moderate" ? "text-yellow-500" :
+                    "text-green-600"
+                }">${data.severity}</td>
+                <td class="py-4 px-5 border">${data.response}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        document.getElementById("searchDisease").addEventListener("keyup", filterDiseaseTable);
+
+        renderCharts();
+    });
+
+    // Search Filter Function
+    function filterDiseaseTable() {
+        let input = document.getElementById("searchDisease").value.toLowerCase();
+        let tableRows = document.querySelectorAll("#diseaseTable tr");
+
+        tableRows.forEach(row => {
+            let text = row.textContent.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+        });
+    }
+
+    // Sorting Function
+    function sortDiseaseTable(columnIndex) {
+        let table = document.getElementById("diseaseTable");
+        let rows = Array.from(table.rows);
+
+        rows.sort((a, b) => {
+            let valA = a.cells[columnIndex].innerText.toLowerCase();
+            let valB = b.cells[columnIndex].innerText.toLowerCase();
+            return valA.localeCompare(valB);
+        });
+
+        rows.forEach(row => table.appendChild(row));
+    }
+
+    // Render Charts
+    function renderCharts() {
+        // Disease Cases Line Chart
+        new Chart(document.getElementById("diseaseChart"), {
+            type: "line",
+            data: {
+                labels: diseaseData.map(d => d.disease),
+                datasets: [{
+                    label: "Reported Cases",
+                    data: diseaseData.map(d => d.cases),
+                    borderColor: "#1D4ED8",
+                    backgroundColor: "rgba(29, 78, 216, 0.2)",
+                    borderWidth: 2,
+                    fill: true
+                }]
+            }
+        });
+
+        // Affected Regions Pie Chart
+        new Chart(document.getElementById("regionChart"), {
+            type: "pie",
+            data: {
+                labels: diseaseData.map(d => d.region),
+                datasets: [{
+                    data: diseaseData.map(d => d.cases),
+                    backgroundColor: ["#E63946", "#F4A261", "#E9C46A", "#2A9D8F", "#264653"]
+                }]
+            }
+        });
+    }
 
 </script>
 
