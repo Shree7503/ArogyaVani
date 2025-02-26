@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gram Panchayat | ArogyaVani</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <header
+      id="navbar"
+      class="bg-blue-950 text-white py-4 shadow-lg fixed top-0 z-50 w-full transition-all duration-300"
+    >
+      <div
+        class="container mx-auto flex items-center justify-between px-4 lg:px-6"
+      >
+        <!-- Left: Symbol -->
+        <div class="flex items-center space-x-2">
+          <span id="symbol" class="text-3xl md:text-5xl text-green-500"
+            >📜<i class=""></i
+          ></span>
+          <h1
+            class="text-lg sm:text-2xl md:text-3xl font-extrabold tracking-wide whitespace-normal leading-tight"
+          >
+            Gram Panchayat <br />
+            <span class="text-yellow-400">| ArogyaVani</span>
+          </h1>
+        </div>
+
+        <!-- Middle: Full Navigation & Hamburger Button -->
+        <div class="flex items-center space-x-6">
+          <nav
+            class="hidden lg:flex space-x-10 text-lg font-bold tracking-wide uppercase"
+          >
+            <a
+              href="#dashboard"
+              class="px-4 py-2 rounded-lg transition-all duration-300 bg-transparent text-white hover:bg-yellow-400 hover:text-[#081c36] shadow-lg"
+            >
+              🏠 Asha
+            </a>
+            <a
+              href="#patients"
+              class="px-4 py-2 rounded-lg transition-all duration-300 bg-transparent text-white hover:bg-yellow-400 hover:text-[#081c36] shadow-lg"
+            >
+              👨‍⚕️ Patients
+            </a>
+            <a
+              href="#doctors"
+              class="px-4 py-2 rounded-lg transition-all duration-300 bg-transparent text-white hover:bg-yellow-400 hover:text-[#081c36] shadow-lg"
+            >
+              🩺 Doctors
+            </a>
+            <a
+              href="#reports"
+              class="px-4 py-2 rounded-lg transition-all duration-300 bg-transparent text-white hover:bg-yellow-400 hover:text-[#081c36] shadow-lg"
+            >
+              📊 Reports
+            </a>
+            <a
+              href="#schemes"
+              class="px-4 py-2 rounded-lg transition-all duration-300 bg-transparent text-white hover:bg-yellow-400 hover:text-[#081c36] shadow-lg"
+            >
+              🏛️ Schemes
+            </a>
+          </nav>
+
+          <!-- Mobile Hamburger Menu Button -->
+          <button
+            id="menu-btn"
+            class="text-white text-3xl focus:outline-none lg:hidden"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+
+        <!-- Right: Officer Profile Section -->
+        <div class="relative group focus-within:block">
+          <button class="flex items-center space-x-2 focus:outline-none">
+            <img
+              src="https://via.placeholder.com/40"
+              alt="Profile"
+              class="w-10 h-10 rounded-full border-2 border-white"
+            />
+            <span class="text-lg font-semibold hidden md:inline">Officer</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div
+            class="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg hidden group-focus-within:block"
+          >
+            <a href="#profile" class="block px-4 py-2 hover:bg-gray-200"
+              >Profile</a
+            >
+            <a href="#settings" class="block px-4 py-2 hover:bg-gray-200"
+              >Settings</a
+            >
+            <a
+              href="#logout"
+              class="block px-4 py-2 text-red-600 hover:bg-gray-200"
+              >Logout</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="fixed top-16 left-0 w-full bg-[#081c36] text-white flex flex-col items-center space-y-4 text-xl font-semibold py-6 opacity-0 scale-y-0 transform transition-all duration-300 origin-top pointer-events-none z-[9999] shadow-lg"
+    >
+      <a
+        href="#dashboard"
+        class="hover:text-yellow-400 py-3 w-full text-center border-b border-gray-600"
+        >🏠 Asha</a
+      >
+      <a
+        href="#patients"
+        class="hover:text-yellow-400 py-3 w-full text-center border-b border-gray-600"
+        >👨‍⚕️ Patients</a
+      >
+      <a
+        href="#doctors"
+        class="hover:text-yellow-400 py-3 w-full text-center border-b border-gray-600"
+        >🩺 Doctors</a
+      >
+      <a
+        href="#reports"
+        class="hover:text-yellow-400 py-3 w-full text-center border-b border-gray-600"
+        >📊 Reports</a
+      >
+      <a href="#schemes" class="hover:text-yellow-400 py-3 w-full text-center"
+        >🏛️ Schemes</a
+      >
+    </div>
+
+    <!-- Government Schemes Section -->
+    <section id="schemes" class="relative bg-gray-100 py-16">
+      <!-- Hero Banner -->
+      <div
+        class="relative h-[450px] flex items-center justify-center text-center text-white overflow-hidden"
+      >
+        <!-- ✅ Background Video -->
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          class="absolute top-0 left-0 w-full h-full object-cover"
+        >
+          <source
+            src="https://media.gettyimages.com/id/1498911143/video/doctor-examines-administers-polio-dosage-to-a-child-during-a-rural-health-care-camp.mp4?s=mp4-640x640-gi&k=20&c=kn0sGGT50umHDG8nTiG8DzfRDN_yExz38QC62PxKJTI="
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+
+        <!-- ✅ Overlay for Better Readability -->
+        <div
+          class="bg-black bg-opacity-50 w-full h-full absolute top-0 left-0"
+        ></div>
+
+        <!-- ✅ Content on Top of Video -->
+        <div class="relative z-10">
+          <h2 class="text-5xl font-extrabold uppercase drop-shadow-lg">
+            Transforming Healthcare Access
+          </h2>
+          <p class="text-xl mt-3 font-semibold drop-shadow-md">
+            Empowering citizens with world-class government healthcare schemes
+          </p>
+        </div>
+      </div>
+
+      <!-- Schemes Display -->
+      <div class="container mx-auto px-6 lg:px-12 mt-12">
+        <h2
+          class="text-5xl font-extrabold text-blue-950 text-center uppercase mb-12 animate-fade-in"
+        >
+          ✅ Flagship Government Healthcare Schemes 📜
+        </h2>
+
+        <div class="space-y-12">
+          <!-- Scheme 1 -->
+          <div class="relative group overflow-hidden rounded-xl shadow-2xl">
+            <img
+              src="https://www.gstsuvidhacenters.com/WebsiteAssets/images/AyushmanBharat/Banner2.jpg"
+              alt="Scheme 1"
+              class="w-full h-[400px] object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white text-center"
+            >
+              <h3 class="text-4xl font-bold uppercase drop-shadow-lg">
+                Ayushman Bharat Yojana
+              </h3>
+              <p class="text-lg mt-3 max-w-2xl drop-shadow-md">
+                Providing ₹5 lakh free health coverage per family for medical
+                treatment.
+              </p>
+              <a
+                href="enrollment.html"
+                class="mt-5 bg-yellow-500 text-black px-8 py-4 text-xl font-bold rounded-lg uppercase transition-transform duration-300 hover:bg-yellow-600 hover:scale-105"
+                >Enroll Now</a
+              >
+            </div>
+          </div>
+
+          <!-- Scheme 2 -->
+          <div class="relative group overflow-hidden rounded-xl shadow-2xl">
+            <img
+              src="https://www.probusinsurance.com/wp-content/uploads/2024/08/Pradhan-Mantri-Matru-Vandana-Yojana.jpg"
+              alt="Scheme 2"
+              class="w-full h-[400px] object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white text-center"
+            >
+              <h3 class="text-4xl font-bold uppercase drop-shadow-lg">
+                Pradhan Mantri Matru Vandana Yojana
+              </h3>
+              <p class="text-lg mt-3 max-w-2xl drop-shadow-md">
+                Financial assistance for pregnant women to ensure a safe and
+                healthy delivery.
+              </p>
+              <a
+                href="enrollment.html"
+                class="mt-5 bg-yellow-500 text-black px-8 py-4 text-xl font-bold rounded-lg uppercase transition-transform duration-300 hover:bg-yellow-600 hover:scale-105"
+                >Enroll Now</a
+              >
+            </div>
+          </div>
+
+          <!-- Scheme 3 -->
+          <div class="relative group overflow-hidden rounded-xl shadow-2xl">
+            <img
+              src="https://img.manoramayearbook.in/content/dam/yearbook/learn/world/images/2020/August/ndhm1.jpg"
+              alt="Scheme 3"
+              class="w-full h-[400px] object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white text-center"
+            >
+              <h3 class="text-4xl font-bold uppercase drop-shadow-lg">
+                National Digital Health Mission
+              </h3>
+              <p class="text-lg mt-3 max-w-2xl drop-shadow-md">
+                Creating a digital health ID for every citizen for seamless
+                medical access.
+              </p>
+              <a
+                href="enrollment.html"
+                class="mt-5 bg-yellow-500 text-black px-8 py-4 text-xl font-bold rounded-lg uppercase transition-transform duration-300 hover:bg-yellow-600 hover:scale-105"
+                >Enroll Now</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <h2
+      class="text-5xl font-extrabold text-blue-950 text-center uppercase mb-12 animate-fade-in"
+    >
+      ✅ Doctor & ASHA Worker Activity 🩺
+    </h2>
+    <section
+      class="relative bg-cover bg-center h-[500px] flex items-center justify-center text-center text-white"
+      style="
+        background-image: url('https://static.toiimg.com/imagenext/toiblogs/photo/blogs/wp-content/uploads/2019/06/IndiasHealthSolution-1024x842.jpg');
+      "
+    >
+      <div class="absolute inset-0 bg-black/70"></div>
+      <div
+        class="relative z-10 px-6 lg:px-12 max-w-4xl mx-auto animate-fade-up"
+      >
+        <h1
+          class="text-6xl md:text-7xl font-extrabold uppercase tracking-wide drop-shadow-2xl leading-tight"
+        >
+          Saving Lives, Every Second
+        </h1>
+        <p class="text-2xl mt-4 font-semibold text-yellow-400 drop-shadow-lg">
+          **Empowering Every Citizen. Transforming Every Life.**
+        </p>
+        <a
+          href="#request-help"
+          class="mt-6 inline-block bg-yellow-500 text-black text-xl font-bold py-4 px-8 rounded-lg uppercase shadow-lg transition-transform duration-300 hover:bg-yellow-600 hover:scale-105"
+        >
+          Request Medical Help 🚑
+        </a>
+      </div>
+    </section>
+
+    <!-- Live Stats Section -->
+    <section class="bg-gray-100 py-16">
+      <div class="container mx-auto px-6 lg:px-12">
+        <h2
+          class="text-5xl font-extrabold text-blue-950 text-center uppercase mb-12 animate-fade-in"
+        >
+          Doctor & ASHA Worker Activity 🩺
+        </h2>
+
+        <!-- Stats Grid -->
+        <div
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-center"
+        >
+          <div
+            class="bg-white p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 animate-fade-up"
+          >
+            <i class="fas fa-user-md text-6xl text-blue-600 mb-4"></i>
+            <h3 class="text-4xl font-bold text-gray-900" id="patients-treated">
+              0
+            </h3>
+            <p class="text-lg text-gray-700 mt-2">Patients Treated</p>
+            <a
+              href="patienttreated.html"
+              class="block mt-4 text-blue-600 font-semibold hover:underline"
+              >View Details</a
+            >
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 animate-fade-up"
+          >
+            <i class="fas fa-home text-6xl text-green-600 mb-4"></i>
+            <h3 class="text-4xl font-bold text-gray-900" id="home-visits">0</h3>
+            <p class="text-lg text-gray-700 mt-2">
+              Home Visits by ASHA Workers
+            </p>
+            <a
+              href="#"
+              class="block mt-4 text-green-600 font-semibold hover:underline"
+              >View Details</a
+            >
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 animate-fade-up"
+          >
+            <i class="fas fa-heartbeat text-6xl text-red-600 mb-4"></i>
+            <h3 class="text-4xl font-bold text-gray-900" id="emergency-cases">
+              0
+            </h3>
+            <p class="text-lg text-gray-700 mt-2">Emergency Cases Handled</p>
+            <a
+              href="#"
+              class="block mt-4 text-red-600 font-semibold hover:underline"
+              >View Details</a
+            >
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-xl shadow-lg transition-transform transform hover:scale-105 animate-fade-up"
+          >
+            <i class="fas fa-baby text-6xl text-purple-600 mb-4"></i>
+            <h3 class="text-4xl font-bold text-gray-900" id="maternity-cases">
+              0
+            </h3>
+            <p class="text-lg text-gray-700 mt-2">Maternal Health Checkups</p>
+            <a
+              href="#"
+              class="block mt-4 text-purple-600 font-semibold hover:underline"
+              >View Details</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline: Recent Activities -->
+    <!-- Recent Activities Section -->
+    <section class="py-24 bg-gray-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-16">
+        <!-- Section Title -->
+        <h2
+          class="text-4xl md:text-5xl font-extrabold text-blue-950 text-center uppercase mb-12 animate-fade-in"
+        >
+          🚑 Recent Healthcare Activities
+        </h2>
+
+        <!-- Timeline Structure -->
+        <div class="relative max-w-6xl mx-auto">
+          <!-- Center Line -->
+          <div
+            class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-2 bg-blue-600 h-full"
+          ></div>
+
+          <!-- Activity 1 -->
+          <div
+            class="mb-12 flex flex-col md:flex-row items-center md:justify-between w-full animate-slide-in-left"
+          >
+            <div
+              class="w-full md:w-5/12 bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105"
+            >
+              <h4 class="text-xl sm:text-2xl font-bold text-gray-900">
+                🏥 Free Health Camp in Village
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm sm:text-lg">
+                Over **300 patients** received medical consultations and free
+                medicines.
+              </p>
+              <p class="text-xs sm:text-sm text-gray-500 mt-2">
+                📅 Date: **Feb 20, 2025**
+              </p>
+            </div>
+            <div class="hidden md:block w-5/12 text-center">
+              <div
+                class="bg-blue-600 text-white p-4 sm:p-6 rounded-full shadow-lg inline-block text-3xl sm:text-4xl"
+              >
+                <i class="fas fa-user-nurse"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 2 -->
+          <div
+            class="mb-12 flex flex-col md:flex-row-reverse items-center md:justify-between w-full animate-slide-in-right"
+          >
+            <div
+              class="w-full md:w-5/12 bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105"
+            >
+              <h4 class="text-xl sm:text-2xl font-bold text-gray-900">
+                💉 Vaccination Drive Completed
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm sm:text-lg">
+                ASHA workers successfully vaccinated **500+ children** in
+                multiple villages.
+              </p>
+              <p class="text-xs sm:text-sm text-gray-500 mt-2">
+                📅 Date: **Feb 18, 2025**
+              </p>
+            </div>
+            <div class="hidden md:block w-5/12 text-center">
+              <div
+                class="bg-green-600 text-white p-4 sm:p-6 rounded-full shadow-lg inline-block text-3xl sm:text-4xl"
+              >
+                <i class="fas fa-syringe"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 3 -->
+          <div
+            class="mb-12 flex flex-col md:flex-row items-center md:justify-between w-full animate-slide-in-left"
+          >
+            <div
+              class="w-full md:w-5/12 bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105"
+            >
+              <h4 class="text-xl sm:text-2xl font-bold text-gray-900">
+                🩺 Maternal Health Checkups
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm sm:text-lg">
+                More than **150 pregnant women** received **prenatal care &
+                nutrition guidance.**
+              </p>
+              <p class="text-xs sm:text-sm text-gray-500 mt-2">
+                📅 Date: **Feb 15, 2025**
+              </p>
+            </div>
+            <div class="hidden md:block w-5/12 text-center">
+              <div
+                class="bg-red-600 text-white p-4 sm:p-6 rounded-full shadow-lg inline-block text-3xl sm:text-4xl"
+              >
+                <i class="fas fa-baby"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 4 -->
+          <div
+            class="mb-12 flex flex-col md:flex-row-reverse items-center md:justify-between w-full animate-slide-in-right"
+          >
+            <div
+              class="w-full md:w-5/12 bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105"
+            >
+              <h4 class="text-xl sm:text-2xl font-bold text-gray-900">
+                🚑 Emergency Response Saved Lives
+              </h4>
+              <p class="text-gray-600 mt-3 text-sm sm:text-lg">
+                Doctors responded to **42 critical emergencies** in remote
+                areas.
+              </p>
+              <p class="text-xs sm:text-sm text-gray-500 mt-2">
+                📅 Date: **Feb 10, 2025**
+              </p>
+            </div>
+            <div class="hidden md:block w-5/12 text-center">
+              <div
+                class="bg-yellow-600 text-white p-4 sm:p-6 rounded-full shadow-lg inline-block text-3xl sm:text-4xl"
+              >
+                <i class="fas fa-ambulance"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center mt-12">
+          <a
+            href="#"
+            class="bg-blue-600 text-white text-lg sm:text-xl font-bold py-3 px-6 sm:py-4 sm:px-10 rounded-lg shadow-lg uppercase transition-transform duration-300 hover:bg-blue-700 hover:scale-105"
+          >
+            View All Activities ➜
+          </a>
+        </div>
+      </div>
+    </section>
+    <section
+      class="relative flex flex-col items-center justify-center py-16 bg-[#081c36] text-white"
+    >
+      <h2 class="text-5xl font-extrabold uppercase mb-6 tracking-wide">
+        Explore Your Village
+      </h2>
+      <p class="text-lg mb-8 text-gray-300 text-center max-w-2xl">
+        View key locations of your village in an interactive map. Zoom in for
+        details or expand to full view.
+      </p>
+
+      <!-- 🌍 Map Container -->
+      <div
+        class="relative w-full max-w-5xl rounded-xl overflow-hidden shadow-xl bg-[#0d274b] p-6"
+      >
+        <!-- 📍 Default Embedded Map -->
+        <iframe
+          id="village-map"
+          class="w-full h-[400px] rounded-lg shadow-lg transition-all duration-500 ease-in-out"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14989.041054632962!2d74.09138574789728!3d20.08140440145838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddceac1f7e8839%3A0x525c8db1c1394d69!2sNiphad%2C%20Maharashtra%20422303!5e0!3m2!1sen!2sin!4v1740422599983!5m2!1sen!2sin"
+          allowfullscreen=""
+          loading="lazy"
+        >
+        </iframe>
+
+        <!-- 🔍 Full View Button -->
+        <div class="text-center mt-6">
+          <button
+            id="toggle-map"
+            class="px-6 py-3 text-lg font-semibold bg-yellow-400 text-[#081c36] rounded-full shadow-md hover:bg-yellow-500 transition duration-300 ease-in-out"
+          >
+            View Full Map
+          </button>
+        </div>
+      </div>
+    </section>
+    <footer class="relative bg-[#050a18] text-gray-300 py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- 🌟 Newsletter Section -->
+        <div class="text-center mb-16">
+          <h2
+            class="text-5xl font-extrabold text-white tracking-wide drop-shadow-lg"
+          >
+            Stay Connected with <span class="text-yellow-400">ArogyaVani</span>
+          </h2>
+          <p
+            class="text-gray-400 mt-4 text-lg max-w-2xl mx-auto leading-relaxed"
+          >
+            Join our community & get the latest health updates, expert advice,
+            and innovations in telemedicine.
+          </p>
+          <div class="mt-8 flex justify-center">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-96 px-6 py-4 rounded-l-lg bg-white/10 border border-gray-500 text-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition placeholder-gray-400"
+            />
+            <button
+              class="px-8 py-4 bg-yellow-500 text-gray-900 rounded-r-lg text-lg font-semibold hover:bg-yellow-600 transition-all hover:scale-105 shadow-lg"
+            >
+              Subscribe →
+            </button>
+          </div>
+        </div>
+
+        <!-- 🌟 Footer Links Section -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 text-gray-400"
+        >
+          <!-- About ArogyaVani -->
+          <div class="space-y-4">
+            <h3 class="text-white text-2xl font-bold">About ArogyaVani</h3>
+            <p class="leading-relaxed text-lg">
+              A cutting-edge telemedicine platform **empowering rural India**
+              with AI-powered healthcare solutions, voice commands, and
+              community-driven support.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="space-y-4">
+            <h3 class="text-white text-2xl font-bold">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-yellow-400 transition-all text-lg flex items-center"
+                  >🔎 Find Doctors</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-yellow-400 transition-all text-lg flex items-center"
+                  >📹 Video Consult</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-yellow-400 transition-all text-lg flex items-center"
+                  >💊 Medicines</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-yellow-400 transition-all text-lg flex items-center"
+                  >🧪 Lab Tests</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-yellow-400 transition-all text-lg flex items-center"
+                  >🔧 Surgeries</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact Us -->
+          <div class="space-y-4">
+            <h3 class="text-white text-2xl font-bold">Contact Us</h3>
+            <p class="text-lg flex items-center gap-2">
+              📧
+              <a
+                href="mailto:support@arogyavani.com"
+                class="hover:text-yellow-400 transition-all"
+                >support@arogyavani.com</a
+              >
+            </p>
+            <p class="text-lg mt-3 flex items-center gap-2">
+              📞
+              <a
+                href="tel:+18001234567"
+                class="hover:text-yellow-400 transition-all"
+                >+91 800 123 4567</a
+              >
+            </p>
+          </div>
+
+          <!-- Social Media Links -->
+          <div class="space-y-4">
+            <h3 class="text-white text-2xl font-bold">Follow Us</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2"
+                  >📘 Facebook</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2"
+                  >🐦 Twitter</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2"
+                  >📸 Instagram</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 🌟 Elegant Divider -->
+        <div class="mt-16 border-t border-gray-700 opacity-50"></div>
+
+        <!-- 🌟 Bottom Footer -->
+        <div
+          class="mt-10 flex flex-col sm:flex-row justify-between items-center text-gray-500 text-lg"
+        >
+          <p>
+            &copy; 2025
+            <span class="text-yellow-400 font-semibold">ArogyaVani</span>. All
+            rights reserved.
+          </p>
+          <ul class="flex space-x-6 mt-4 sm:mt-0">
+            <li>
+              <a href="#" class="hover:text-yellow-400 transition"
+                >Privacy Policy</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-yellow-400 transition"
+                >Terms of Service</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      let menuOpen = false;
+
+      menuBtn.addEventListener("click", function () {
+        menuOpen = !menuOpen;
+
+        if (menuOpen) {
+          mobileMenu.classList.remove(
+            "opacity-0",
+            "scale-y-0",
+            "pointer-events-none"
+          );
+          mobileMenu.classList.add(
+            "opacity-100",
+            "scale-y-100",
+            "pointer-events-auto"
+          );
+        } else {
+          mobileMenu.classList.remove(
+            "opacity-100",
+            "scale-y-100",
+            "pointer-events-auto"
+          );
+          mobileMenu.classList.add(
+            "opacity-0",
+            "scale-y-0",
+            "pointer-events-none"
+          );
+        }
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("bg-opacity-90", "shadow-md");
+        } else {
+          navbar.classList.remove("bg-opacity-90", "shadow-md");
+        }
+      });
+      function animateValue(id, start, end, duration) {
+        let obj = document.getElementById(id);
+        let range = end - start;
+        let startTime = null;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          let progress = timestamp - startTime;
+          let increment = Math.min(progress / duration, 1);
+          obj.innerText = Math.floor(start + range * increment);
+
+          if (progress < duration) {
+            requestAnimationFrame(step);
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Run Animations When Page Loads
+      window.onload = function () {
+        animateValue("patients-treated", 0, 12000, 2000);
+        animateValue("home-visits", 0, 25000, 2500);
+        animateValue("emergency-cases", 0, 3400, 3000);
+        animateValue("maternity-cases", 0, 1700, 2000);
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        let elements = document.querySelectorAll(
+          ".animate-slide-in-left, .animate-slide-in-right"
+        );
+
+        function reveal() {
+          let windowHeight = window.innerHeight;
+          elements.forEach((el) => {
+            let elementTop = el.getBoundingClientRect().top;
+            if (elementTop < windowHeight - 100) {
+              el.classList.add("opacity-100", "translate-x-0");
+            }
+          });
+        }
+
+        window.addEventListener("scroll", reveal);
+        reveal();
+      });
+      document
+        .getElementById("toggle-map")
+        .addEventListener("click", function () {
+          let mapFrame = document.getElementById("village-map");
+
+          // Toggle between normal and full view
+          if (mapFrame.classList.contains("h-[400px]")) {
+            mapFrame.classList.remove("h-[400px]");
+            mapFrame.classList.add("h-[80vh]"); // Expands to 80% of screen height
+            this.textContent = "Minimize Map";
+          } else {
+            mapFrame.classList.remove("h-[80vh]");
+            mapFrame.classList.add("h-[400px]"); // Restores normal view
+            this.textContent = "View Full Map";
+          }
+        });
+      document.getElementById("voice-btn").addEventListener("click", () => {
+        try {
+          const recognition = new (window.SpeechRecognition ||
+            window.webkitSpeechRecognition)();
+          recognition.lang = "en-IN"; // Set language (customize as needed)
+          recognition.start();
+
+          // Activate Mic Button Effects
+          const btn = document.getElementById("voice-btn");
+          btn.innerHTML = "<span class='text-3xl animate-spin'>🎤</span>";
+          btn.classList.add(
+            "bg-red-500",
+            "border-red-400",
+            "shadow-red-500/50"
+          );
+
+          recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            console.log("User said:", transcript);
+          };
+
+          recognition.onend = () => {
+            console.log("Voice recognition stopped.");
+            btn.innerHTML = "<span class='text-3xl'>🎙️</span>";
+            btn.classList.remove(
+              "bg-red-500",
+              "border-red-400",
+              "shadow-red-500/50"
+            );
+          };
+
+          recognition.onerror = (event) => {
+            console.error("Error:", event.error);
+            btn.innerHTML = "<span class='text-3xl'>🎙️</span>";
+            btn.classList.remove(
+              "bg-red-500",
+              "border-red-400",
+              "shadow-red-500/50"
+            );
+          };
+        } catch (error) {
+          console.error("Speech recognition not supported.");
+          alert("Speech recognition is not supported in your browser.");
+        }
+      });
+    </script>
+    <button
+      id="voice-btn"
+      class="fixed bottom-6 right-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 ease-in-out flex items-center justify-center border-4 border-yellow-300/60 ring-2 ring-yellow-400/50 backdrop-blur-lg animate-pulse"
+    >
+      <span class="text-3xl">🎙️</span>
+    </button>
+  </body>
+</html>
